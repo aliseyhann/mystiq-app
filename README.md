@@ -2,10 +2,6 @@
 # Overview
 MystiQ is a Flutter-based app combining astrology and coffee fortune-telling with modern technology. It supports regular users and fortune tellers with tailored features for each role.
 
-![WhatsApp Image 2025-01-08 at 14 24 24](https://github.com/user-attachments/assets/4161cc9b-a8b2-4044-98f4-57242e51c271)
-
-![WhatsApp Image 2025-01-08 at 14 24 58](https://github.com/user-attachments/assets/04cab203-3e81-49b2-80b7-8365164af47d)
-
 <img src="https://github.com/user-attachments/assets/4161cc9b-a8b2-4044-98f4-57242e51c271" alt="WhatsApp Image 1" width="400" />
 
 <img src="https://github.com/user-attachments/assets/04cab203-3e81-49b2-80b7-8365164af47d" alt="WhatsApp Image 2" width="400" />
