@@ -4,17 +4,27 @@ MystiQ is a Flutter-based app combining astrology and coffee fortune-telling wit
 
 # Features
 Profile Page
-    - Edit profile (email, name).
-    - Manage notification preferences.
-    - Delete account option.
+    Edit profile (email, name).
+    
+    Manage notification preferences.
+    
+    Delete account option.
+    
 Main Pages
     For Regular Users: Personalized features like horoscope readings.
+    
     For Fortune Tellers: Manage requests and chats.
+    
     Chat with RabbitMQ
+    
     Real-time chat between regular users and fortune tellers.
+    
     Initiate chat from the answered fortunes section in the Inbox.
+    
     "Messages" section for chat history:
+    
     Regular Users: Added under Inbox.
+    
     Fortune Tellers: Added under Fortune Requests.
 Features:
     Message delivery & status.
