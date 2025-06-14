@@ -41,7 +41,7 @@ class _ProfilePageState extends State<ProfilePage> {
         isLoading = false;
       });
     } else if (widget.enableDatabase) {
-      _connectToDatabase();
+    _connectToDatabase();
     } else {
       setState(() {
         isLoading = false;
@@ -666,7 +666,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void dispose() {
     if (widget.enableDatabase) {
-      db.close();
+    db.close();
     }
     super.dispose();
   }

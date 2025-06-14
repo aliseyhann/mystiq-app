@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> {
       fortuneRequestsCollection = widget.fortuneRequestsCollection!;
       _loadUserData();
     } else if (widget.enableDatabase) {
-      _connectToDatabase();
+    _connectToDatabase();
     }
     if (widget.enableTimer) {
       _refreshTimer = Timer.periodic(const Duration(seconds: 5), (_) {
@@ -593,7 +593,7 @@ class _HomePageState extends State<HomePage> {
   void dispose() {
     _refreshTimer?.cancel();
     if (widget.db == null && widget.enableDatabase) {
-      db.close();
+    db.close();
     }
     super.dispose();
   }

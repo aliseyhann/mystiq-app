@@ -6,23 +6,23 @@
 import 'dart:async' as _i9;
 
 import 'package:dart_amqp/src/client.dart' as _i7;
-import 'package:dart_amqp/src/enums.dart' as _i18;
+import 'package:dart_amqp/src/enums.dart' as _i10;
 import 'package:dart_amqp/src/protocol.dart' as _i8;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i15;
+import 'package:mockito/src/dummies.dart' as _i16;
 import 'package:mongo_dart/mongo_dart.dart' as _i2;
 import 'package:mongo_dart/src/database/commands/administration_commands/drop_command/drop_options.dart'
-    as _i14;
+    as _i15;
 import 'package:mongo_dart/src/database/commands/administration_commands/drop_database_command/drop_database_options.dart'
-    as _i11;
+    as _i12;
 import 'package:mongo_dart/src/database/commands/administration_commands/list_collections_command/list_collections_options.dart'
-    as _i13;
+    as _i14;
 import 'package:mongo_dart/src/database/commands/aggregation_commands/count/count_options.dart'
-    as _i17;
+    as _i18;
 import 'package:mongo_dart/src/database/commands/aggregation_commands/count/count_result.dart'
     as _i6;
 import 'package:mongo_dart/src/database/commands/aggregation_commands/distinct/distinct_options.dart'
-    as _i16;
+    as _i17;
 import 'package:mongo_dart/src/database/commands/aggregation_commands/distinct/distinct_result.dart'
     as _i4;
 import 'package:mongo_dart/src/database/commands/operation.dart' as _i3;
@@ -34,8 +34,8 @@ import 'package:mongo_dart/src/database/commands/query_and_write_operation_comma
     as _i19;
 import 'package:mongo_dart/src/database/cursor/modern_cursor.dart' as _i5;
 import 'package:mongo_dart/src/database/message/mongo_modern_message.dart'
-    as _i10;
-import 'package:mongo_dart_query/mongo_dart_query.dart' as _i12;
+    as _i11;
+import 'package:mongo_dart_query/mongo_dart_query.dart' as _i13;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -248,8 +248,18 @@ class _FakeExchange_18 extends _i1.SmartFake implements _i7.Exchange {
         );
 }
 
-class _FakeConsumer_19 extends _i1.SmartFake implements _i7.Consumer {
-  _FakeConsumer_19(
+class _FakeExchangeType_19 extends _i1.SmartFake implements _i10.ExchangeType {
+  _FakeExchangeType_19(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeConsumer_20 extends _i1.SmartFake implements _i7.Consumer {
+  _FakeConsumer_20(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -417,7 +427,7 @@ class MockDb extends _i1.Mock implements _i2.Db {
 
   @override
   _i9.Future<Map<String, Object?>> executeModernMessage(
-    _i10.MongoModernMessage? message, {
+    _i11.MongoModernMessage? message, {
     _i2.Connection? connection,
     bool? skipStateCheck = false,
   }) =>
@@ -732,7 +742,7 @@ class MockDb extends _i1.Mock implements _i2.Db {
 
   @override
   _i9.Future<Map<String, Object?>> modernDropDatabase({
-    _i11.DropDatabaseOptions? dropOptions,
+    _i12.DropDatabaseOptions? dropOptions,
     Map<String, Object>? rawOptions,
   }) =>
       (super.noSuchMethod(
@@ -782,9 +792,9 @@ class MockDb extends _i1.Mock implements _i2.Db {
 
   @override
   _i9.Stream<Map<String, dynamic>> modernListCollections({
-    _i12.SelectorBuilder? selector,
+    _i13.SelectorBuilder? selector,
     Map<String, Object?>? filter,
-    _i13.ListCollectionsOptions? findOptions,
+    _i14.ListCollectionsOptions? findOptions,
     Map<String, Object>? rawOptions,
   }) =>
       (super.noSuchMethod(
@@ -829,7 +839,7 @@ class MockDb extends _i1.Mock implements _i2.Db {
   @override
   _i9.Future<Map<String, Object?>> modernDrop(
     String? collectionNAme, {
-    _i14.DropOptions? dropOptions,
+    _i15.DropOptions? dropOptions,
     Map<String, Object>? rawOptions,
   }) =>
       (super.noSuchMethod(
@@ -922,7 +932,7 @@ class MockDbCollection extends _i1.Mock implements _i2.DbCollection {
   @override
   String get collectionName => (super.noSuchMethod(
         Invocation.getter(#collectionName),
-        returnValue: _i15.dummyValue<String>(
+        returnValue: _i16.dummyValue<String>(
           this,
           Invocation.getter(#collectionName),
         ),
@@ -961,7 +971,7 @@ class MockDbCollection extends _i1.Mock implements _i2.DbCollection {
           #fullName,
           [],
         ),
-        returnValue: _i15.dummyValue<String>(
+        returnValue: _i16.dummyValue<String>(
           this,
           Invocation.method(
             #fullName,
@@ -1791,7 +1801,7 @@ class MockDbCollection extends _i1.Mock implements _i2.DbCollection {
 
   @override
   _i9.Stream<Map<String, dynamic>> modernFind({
-    _i12.SelectorBuilder? selector,
+    _i13.SelectorBuilder? selector,
     Map<String, Object?>? filter,
     Map<String, Object>? sort,
     Map<String, Object>? projection,
@@ -1824,7 +1834,7 @@ class MockDbCollection extends _i1.Mock implements _i2.DbCollection {
 
   @override
   _i9.Future<Map<String, dynamic>?> modernFindOne({
-    _i12.SelectorBuilder? selector,
+    _i13.SelectorBuilder? selector,
     Map<String, Object?>? filter,
     Map<String, Object>? sort,
     Map<String, Object>? projection,
@@ -1857,7 +1867,7 @@ class MockDbCollection extends _i1.Mock implements _i2.DbCollection {
   _i9.Future<_i4.DistinctResult> modernDistinct(
     String? field, {
     dynamic query,
-    _i16.DistinctOptions? distinctOptions,
+    _i17.DistinctOptions? distinctOptions,
     Map<String, Object>? rawOptions,
   }) =>
       (super.noSuchMethod(
@@ -1889,7 +1899,7 @@ class MockDbCollection extends _i1.Mock implements _i2.DbCollection {
   _i9.Future<Map<String, Object?>> modernDistinctMap(
     String? field, {
     dynamic query,
-    _i16.DistinctOptions? distinctOptions,
+    _i17.DistinctOptions? distinctOptions,
     Map<String, Object>? rawOptions,
   }) =>
       (super.noSuchMethod(
@@ -2064,14 +2074,14 @@ class MockDbCollection extends _i1.Mock implements _i2.DbCollection {
 
   @override
   _i9.Future<_i6.CountResult> modernCount({
-    _i12.SelectorBuilder? selector,
+    _i13.SelectorBuilder? selector,
     Map<String, Object?>? filter,
     int? limit,
     int? skip,
     _i3.CollationOptions? collation,
     String? hint,
     Map<String, Object>? hintDocument,
-    _i17.CountOptions? countOptions,
+    _i18.CountOptions? countOptions,
     Map<String, Object>? rawOptions,
   }) =>
       (super.noSuchMethod(
@@ -2304,7 +2314,7 @@ class MockChannel extends _i1.Mock implements _i7.Channel {
   @override
   _i9.Future<_i7.Exchange> exchange(
     String? name,
-    _i18.ExchangeType? type, {
+    _i10.ExchangeType? type, {
     bool? passive = false,
     bool? durable = false,
     bool? noWait = false,
@@ -2531,6 +2541,395 @@ class MockChannel extends _i1.Mock implements _i7.Channel {
       ) as _i9.Future<dynamic>);
 }
 
+/// A class which mocks [Exchange].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockExchange extends _i1.Mock implements _i7.Exchange {
+  MockExchange() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  String get name => (super.noSuchMethod(
+        Invocation.getter(#name),
+        returnValue: _i16.dummyValue<String>(
+          this,
+          Invocation.getter(#name),
+        ),
+      ) as String);
+
+  @override
+  _i10.ExchangeType get type => (super.noSuchMethod(
+        Invocation.getter(#type),
+        returnValue: _FakeExchangeType_19(
+          this,
+          Invocation.getter(#type),
+        ),
+      ) as _i10.ExchangeType);
+
+  @override
+  _i7.Channel get channel => (super.noSuchMethod(
+        Invocation.getter(#channel),
+        returnValue: _FakeChannel_15(
+          this,
+          Invocation.getter(#channel),
+        ),
+      ) as _i7.Channel);
+
+  @override
+  _i9.Future<_i7.Exchange> delete({
+    bool? ifUnused = false,
+    bool? noWait = false,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #delete,
+          [],
+          {
+            #ifUnused: ifUnused,
+            #noWait: noWait,
+          },
+        ),
+        returnValue: _i9.Future<_i7.Exchange>.value(_FakeExchange_18(
+          this,
+          Invocation.method(
+            #delete,
+            [],
+            {
+              #ifUnused: ifUnused,
+              #noWait: noWait,
+            },
+          ),
+        )),
+      ) as _i9.Future<_i7.Exchange>);
+
+  @override
+  void publish(
+    Object? message,
+    String? routingKey, {
+    _i8.MessageProperties? properties,
+    bool? mandatory = false,
+    bool? immediate = false,
+  }) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #publish,
+          [
+            message,
+            routingKey,
+          ],
+          {
+            #properties: properties,
+            #mandatory: mandatory,
+            #immediate: immediate,
+          },
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i9.Future<_i7.Consumer> bindPrivateQueueConsumer(
+    List<String>? routingKeys, {
+    String? consumerTag,
+    bool? noAck = true,
+    bool? noWait = false,
+    Map<String, Object>? arguments,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #bindPrivateQueueConsumer,
+          [routingKeys],
+          {
+            #consumerTag: consumerTag,
+            #noAck: noAck,
+            #noWait: noWait,
+            #arguments: arguments,
+          },
+        ),
+        returnValue: _i9.Future<_i7.Consumer>.value(_FakeConsumer_20(
+          this,
+          Invocation.method(
+            #bindPrivateQueueConsumer,
+            [routingKeys],
+            {
+              #consumerTag: consumerTag,
+              #noAck: noAck,
+              #noWait: noWait,
+              #arguments: arguments,
+            },
+          ),
+        )),
+      ) as _i9.Future<_i7.Consumer>);
+
+  @override
+  _i9.Future<_i7.Consumer> bindQueueConsumer(
+    String? queueName,
+    List<String>? routingKeys, {
+    String? consumerTag,
+    bool? noAck = true,
+    bool? passive = false,
+    bool? durable = false,
+    bool? exclusive = false,
+    bool? autoDelete = false,
+    bool? noWait = false,
+    bool? declare = true,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #bindQueueConsumer,
+          [
+            queueName,
+            routingKeys,
+          ],
+          {
+            #consumerTag: consumerTag,
+            #noAck: noAck,
+            #passive: passive,
+            #durable: durable,
+            #exclusive: exclusive,
+            #autoDelete: autoDelete,
+            #noWait: noWait,
+            #declare: declare,
+          },
+        ),
+        returnValue: _i9.Future<_i7.Consumer>.value(_FakeConsumer_20(
+          this,
+          Invocation.method(
+            #bindQueueConsumer,
+            [
+              queueName,
+              routingKeys,
+            ],
+            {
+              #consumerTag: consumerTag,
+              #noAck: noAck,
+              #passive: passive,
+              #durable: durable,
+              #exclusive: exclusive,
+              #autoDelete: autoDelete,
+              #noWait: noWait,
+              #declare: declare,
+            },
+          ),
+        )),
+      ) as _i9.Future<_i7.Consumer>);
+}
+
+/// A class which mocks [Queue].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockQueue extends _i1.Mock implements _i7.Queue {
+  MockQueue() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  String get name => (super.noSuchMethod(
+        Invocation.getter(#name),
+        returnValue: _i16.dummyValue<String>(
+          this,
+          Invocation.getter(#name),
+        ),
+      ) as String);
+
+  @override
+  int get messageCount => (super.noSuchMethod(
+        Invocation.getter(#messageCount),
+        returnValue: 0,
+      ) as int);
+
+  @override
+  int get consumerCount => (super.noSuchMethod(
+        Invocation.getter(#consumerCount),
+        returnValue: 0,
+      ) as int);
+
+  @override
+  _i7.Channel get channel => (super.noSuchMethod(
+        Invocation.getter(#channel),
+        returnValue: _FakeChannel_15(
+          this,
+          Invocation.getter(#channel),
+        ),
+      ) as _i7.Channel);
+
+  @override
+  _i9.Future<_i7.Queue> delete({
+    bool? ifUnused = false,
+    bool? ifEmpty = false,
+    bool? noWait = false,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #delete,
+          [],
+          {
+            #ifUnused: ifUnused,
+            #ifEmpty: ifEmpty,
+            #noWait: noWait,
+          },
+        ),
+        returnValue: _i9.Future<_i7.Queue>.value(_FakeQueue_17(
+          this,
+          Invocation.method(
+            #delete,
+            [],
+            {
+              #ifUnused: ifUnused,
+              #ifEmpty: ifEmpty,
+              #noWait: noWait,
+            },
+          ),
+        )),
+      ) as _i9.Future<_i7.Queue>);
+
+  @override
+  _i9.Future<_i7.Queue> purge({bool? noWait = false}) => (super.noSuchMethod(
+        Invocation.method(
+          #purge,
+          [],
+          {#noWait: noWait},
+        ),
+        returnValue: _i9.Future<_i7.Queue>.value(_FakeQueue_17(
+          this,
+          Invocation.method(
+            #purge,
+            [],
+            {#noWait: noWait},
+          ),
+        )),
+      ) as _i9.Future<_i7.Queue>);
+
+  @override
+  _i9.Future<_i7.Queue> bind(
+    _i7.Exchange? exchange,
+    String? routingKey, {
+    bool? noWait,
+    Map<String, Object>? arguments,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #bind,
+          [
+            exchange,
+            routingKey,
+          ],
+          {
+            #noWait: noWait,
+            #arguments: arguments,
+          },
+        ),
+        returnValue: _i9.Future<_i7.Queue>.value(_FakeQueue_17(
+          this,
+          Invocation.method(
+            #bind,
+            [
+              exchange,
+              routingKey,
+            ],
+            {
+              #noWait: noWait,
+              #arguments: arguments,
+            },
+          ),
+        )),
+      ) as _i9.Future<_i7.Queue>);
+
+  @override
+  _i9.Future<_i7.Queue> unbind(
+    _i7.Exchange? exchange,
+    String? routingKey, {
+    bool? noWait,
+    Map<String, Object>? arguments,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #unbind,
+          [
+            exchange,
+            routingKey,
+          ],
+          {
+            #noWait: noWait,
+            #arguments: arguments,
+          },
+        ),
+        returnValue: _i9.Future<_i7.Queue>.value(_FakeQueue_17(
+          this,
+          Invocation.method(
+            #unbind,
+            [
+              exchange,
+              routingKey,
+            ],
+            {
+              #noWait: noWait,
+              #arguments: arguments,
+            },
+          ),
+        )),
+      ) as _i9.Future<_i7.Queue>);
+
+  @override
+  void publish(
+    Object? message, {
+    _i8.MessageProperties? properties,
+    bool? mandatory = false,
+    bool? immediate = false,
+  }) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #publish,
+          [message],
+          {
+            #properties: properties,
+            #mandatory: mandatory,
+            #immediate: immediate,
+          },
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i9.Future<_i7.Consumer> consume({
+    String? consumerTag,
+    bool? noLocal = false,
+    bool? noAck = true,
+    bool? exclusive = false,
+    bool? noWait = false,
+    Map<String, Object>? arguments,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #consume,
+          [],
+          {
+            #consumerTag: consumerTag,
+            #noLocal: noLocal,
+            #noAck: noAck,
+            #exclusive: exclusive,
+            #noWait: noWait,
+            #arguments: arguments,
+          },
+        ),
+        returnValue: _i9.Future<_i7.Consumer>.value(_FakeConsumer_20(
+          this,
+          Invocation.method(
+            #consume,
+            [],
+            {
+              #consumerTag: consumerTag,
+              #noLocal: noLocal,
+              #noAck: noAck,
+              #exclusive: exclusive,
+              #noWait: noWait,
+              #arguments: arguments,
+            },
+          ),
+        )),
+      ) as _i9.Future<_i7.Consumer>);
+}
+
 /// A class which mocks [Consumer].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -2542,7 +2941,7 @@ class MockConsumer extends _i1.Mock implements _i7.Consumer {
   @override
   String get tag => (super.noSuchMethod(
         Invocation.getter(#tag),
-        returnValue: _i15.dummyValue<String>(
+        returnValue: _i16.dummyValue<String>(
           this,
           Invocation.getter(#tag),
         ),
@@ -2605,7 +3004,7 @@ class MockConsumer extends _i1.Mock implements _i7.Consumer {
           [],
           {#noWait: noWait},
         ),
-        returnValue: _i9.Future<_i7.Consumer>.value(_FakeConsumer_19(
+        returnValue: _i9.Future<_i7.Consumer>.value(_FakeConsumer_20(
           this,
           Invocation.method(
             #cancel,

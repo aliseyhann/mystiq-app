@@ -38,9 +38,9 @@ class _MainPageNormalUserState extends State<MainPageNormalUser> {
     super.initState();
     _updateDateTime();
     if (widget.enableTimer) {
-      _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-        _updateDateTime();
-      });
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      _updateDateTime();
+    });
     }
     _pages = [
       _buildHomePage(),

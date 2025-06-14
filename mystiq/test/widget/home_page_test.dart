@@ -1,44 +1,50 @@
-import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
-import 'package:mystiq_fortune_app/pages/homepage.dart';
-import 'package:mockito/mockito.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mongo_dart/mongo_dart.dart' as mongo;
-
-@GenerateMocks([mongo.Db, mongo.DbCollection])
-import 'home_page_test.mocks.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mystiq_fortune_app/home_page.dart';
+import 'package:mystiq_fortune_app/homepage_routing/login_page.dart';
+import 'package:mystiq_fortune_app/homepage_routing/register_page.dart';
 
 void main() {
-  late MockDb mockDb;
-  late MockDbCollection mockUsersCollection;
-  late MockDbCollection mockFortuneRequestsCollection;
+  group('HomePage Widget Tests', () {
+    testWidgets('HomePage should create state correctly', (WidgetTester tester) async {
+      // HomePage widget'ını oluştur
+      await tester.pumpWidget(const MaterialApp(home: HomePage()));
 
-  setUp(() {
-    mockDb = MockDb();
-    mockUsersCollection = MockDbCollection();
-    mockFortuneRequestsCollection = MockDbCollection();
+      // HomePage'in state'ini kontrol et
+      expect(find.byType(HomePage), findsOneWidget);
+    });
 
-    when(mockDb.collection('users')).thenReturn(mockUsersCollection);
-    when(mockDb.collection('fortune_requests')).thenReturn(mockFortuneRequestsCollection);
-  });
+    testWidgets('HomePage should display login and register buttons', (WidgetTester tester) async {
+      // HomePage widget'ını oluştur
+      await tester.pumpWidget(const MaterialApp(home: HomePage()));
 
-  testWidgets('HomePage renders correctly', (WidgetTester tester) async {
-    await tester.pumpWidget(
-      MaterialApp(
-        home: HomePage(
-          email: 'test@example.com',
-          name: 'Test User',
-          db: mockDb,
-          usersCollection: mockUsersCollection,
-          fortuneRequestsCollection: mockFortuneRequestsCollection,
-        ),
-      ),
-    );
+      // Login ve Register butonlarının varlığını kontrol et
+      expect(find.text('Login'), findsOneWidget);
+      expect(find.text('Register'), findsOneWidget);
+    });
 
-    // Widget'ın yüklenmesini bekle
-    await tester.pumpAndSettle();
+    testWidgets('HomePage should navigate to login page when login button is pressed', (WidgetTester tester) async {
+      // HomePage widget'ını oluştur
+      await tester.pumpWidget(const MaterialApp(home: HomePage()));
 
-    // Scaffold widget'ının varlığını kontrol et
-    expect(find.byType(Scaffold), findsOneWidget);
+      // Login butonuna tıkla
+      await tester.tap(find.text('Login'));
+      await tester.pumpAndSettle();
+
+      // Login sayfasına yönlendirildiğini kontrol et
+      expect(find.byType(LoginPage), findsOneWidget);
+    });
+
+    testWidgets('HomePage should navigate to register page when register button is pressed', (WidgetTester tester) async {
+      // HomePage widget'ını oluştur
+      await tester.pumpWidget(const MaterialApp(home: HomePage()));
+
+      // Register butonuna tıkla
+      await tester.tap(find.text('Register'));
+      await tester.pumpAndSettle();
+
+      // Register sayfasına yönlendirildiğini kontrol et
+      expect(find.byType(RegisterPage), findsOneWidget);
+    });
   });
 } 

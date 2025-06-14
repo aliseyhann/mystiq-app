@@ -10,6 +10,8 @@ import 'package:dart_amqp/dart_amqp.dart';
   DbCollection,
   Client,
   Channel,
+  Exchange,
+  Queue,
   Consumer,
   WriteResult,
 ])
@@ -21,16 +23,30 @@ void main() {
   late MockDbCollection mockCollection;
   late MockClient mockClient;
   late MockChannel mockChannel;
+  late MockExchange mockExchange;
+  late MockQueue mockQueue;
   late MockConsumer mockConsumer;
+  late MockWriteResult mockWriteResult;
 
   setUp(() {
     mockDb = MockDb();
     mockCollection = MockDbCollection();
     mockClient = MockClient();
     mockChannel = MockChannel();
+    mockExchange = MockExchange();
+    mockQueue = MockQueue();
     mockConsumer = MockConsumer();
+    mockWriteResult = MockWriteResult();
     
     when(mockConsumer.cancel()).thenAnswer((_) async => mockConsumer);
+    when(mockChannel.exchange(any, any, durable: anyNamed('durable')))
+        .thenAnswer((_) async => mockExchange);
+    when(mockChannel.queue(any, durable: anyNamed('durable')))
+        .thenAnswer((_) async => mockQueue);
+    when(mockQueue.bind(any, any)).thenAnswer((_) async => mockQueue);
+    when(mockCollection.insert(any)).thenAnswer((_) async => {'_id': '123'});
+    when(mockDb.isConnected).thenReturn(true);
+    when(mockChannel.close()).thenAnswer((_) async => mockChannel);
     
     chatService = ChatService(
       db: mockDb,
@@ -131,6 +147,89 @@ void main() {
 
       // Assert
       verify(mockCollection.updateOne(any, any)).called(1);
+    });
+  });
+
+  group('ChatService RabbitMQ Tests', () {
+    test('sendMessage should publish message to RabbitMQ when channel exists', () async {
+      // Arrange
+      final messageData = {
+        'senderEmail': 'test@example.com',
+        'recipientEmail': 'recipient@example.com',
+        'message': 'Test message',
+        'timestamp': DateTime.now(),
+        'expiresAt': DateTime.now().add(const Duration(days: 1)),
+      };
+
+      // Act
+      await chatService.sendMessage(
+        senderEmail: messageData['senderEmail'] as String,
+        recipientEmail: messageData['recipientEmail'] as String,
+        message: messageData['message'] as String,
+        senderName: 'Test User',
+      );
+
+      // Assert
+      verify(mockChannel.exchange('chat', ExchangeType.DIRECT, durable: false)).called(1);
+      verify(mockChannel.queue('chat.${messageData['recipientEmail']}', durable: false)).called(1);
+      verify(mockQueue.bind(any, 'chat.${messageData['recipientEmail']}')).called(1);
+      verify(mockExchange.publish(any, 'chat.${messageData['recipientEmail']}')).called(1);
+      verify(mockCollection.insert(any)).called(1);
+    });
+
+    test('sendMessage should handle RabbitMQ errors and attempt reconnect', () async {
+      // Arrange
+      when(mockChannel.exchange(any, any, durable: anyNamed('durable')))
+          .thenThrow(Exception('RabbitMQ error'));
+
+      final messageData = {
+        'senderEmail': 'test@example.com',
+        'recipientEmail': 'recipient@example.com',
+        'message': 'Test message',
+        'timestamp': DateTime.now(),
+        'expiresAt': DateTime.now().add(const Duration(days: 1)),
+      };
+
+      // Act & Assert
+      await expectLater(
+        () => chatService.sendMessage(
+          senderEmail: messageData['senderEmail'] as String,
+          recipientEmail: messageData['recipientEmail'] as String,
+          message: messageData['message'] as String,
+          senderName: 'Test User',
+        ),
+        throwsA(isA<Exception>()),
+      );
+    });
+
+    test('sendMessage should handle null channel gracefully', () async {
+      // Arrange
+      chatService = ChatService(
+        db: mockDb,
+        messagesCollection: mockCollection,
+        client: mockClient,
+        channel: null,
+        consumer: mockConsumer,
+      );
+
+      final messageData = {
+        'senderEmail': 'test@example.com',
+        'recipientEmail': 'recipient@example.com',
+        'message': 'Test message',
+        'timestamp': DateTime.now(),
+        'expiresAt': DateTime.now().add(const Duration(days: 1)),
+      };
+
+      // Act & Assert
+      await expectLater(
+        () => chatService.sendMessage(
+          senderEmail: messageData['senderEmail'] as String,
+          recipientEmail: messageData['recipientEmail'] as String,
+          message: messageData['message'] as String,
+          senderName: 'Test User',
+        ),
+        throwsA(isA<Exception>()),
+      );
     });
   });
 } 
