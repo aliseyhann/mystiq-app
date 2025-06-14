@@ -13,6 +13,7 @@ import 'package:mystiq_fortune_app/homepage_routing/reset_password_page.dart';
 import 'package:mystiq_fortune_app/onboarding_screen/onboarding_page.dart';
 import 'package:mystiq_fortune_app/pages/MainPage/main_page_fortune_teller.dart';
 import 'package:mystiq_fortune_app/pages/MainPage/main_page_normal_user.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   final String role;
@@ -60,7 +61,9 @@ class _LoginPageState extends State<LoginPage> {
         String role = user["role"];
 
         // Oturumu kaydet
-        await SessionService.saveSession(email, role);
+        final prefs = await SharedPreferences.getInstance();
+        final sessionService = SessionService(prefs);
+        await sessionService.saveSession(email, role);
 
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Giriş başarılı!")),
@@ -153,7 +156,9 @@ class _LoginPageState extends State<LoginPage> {
           String role = existingUser["role"];
 
           // Oturumu kaydet
-          await SessionService.saveSession(email!, role);
+          final prefs = await SharedPreferences.getInstance();
+          final sessionService = SessionService(prefs);
+          await sessionService.saveSession(email!, role);
 
           if (role == "Fortune Teller") {
             Navigator.pushReplacement(

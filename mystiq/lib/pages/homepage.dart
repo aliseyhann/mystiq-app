@@ -5,15 +5,26 @@ import 'package:mystiq_fortune_app/pages/chat/chat_page.dart';
 import 'package:mystiq_fortune_app/pages/compatibility_page.dart';
 import 'package:intl/intl.dart';
 import 'dart:convert';
+import 'dart:async';
 
 class HomePage extends StatefulWidget {
   final String email;
   final String name;
+  final mongo.Db? db;
+  final mongo.DbCollection? usersCollection;
+  final mongo.DbCollection? fortuneRequestsCollection;
+  final bool enableTimer;
+  final bool enableDatabase;
 
   const HomePage({
     Key? key,
     required this.email,
     required this.name,
+    this.db,
+    this.usersCollection,
+    this.fortuneRequestsCollection,
+    this.enableTimer = true,
+    this.enableDatabase = true,
   }) : super(key: key);
 
   @override
@@ -30,11 +41,26 @@ class _HomePageState extends State<HomePage> {
     'element': '',
     'maritalStatus': '',
   };
+  Timer? _refreshTimer;
 
   @override
   void initState() {
     super.initState();
-    _connectToDatabase();
+    if (widget.db != null && widget.usersCollection != null && widget.fortuneRequestsCollection != null) {
+      db = widget.db!;
+      usersCollection = widget.usersCollection!;
+      fortuneRequestsCollection = widget.fortuneRequestsCollection!;
+      _loadUserData();
+    } else if (widget.enableDatabase) {
+      _connectToDatabase();
+    }
+    if (widget.enableTimer) {
+      _refreshTimer = Timer.periodic(const Duration(seconds: 5), (_) {
+        if (mounted) {
+          setState(() {});
+        }
+      });
+    }
   }
 
   Future<void> _connectToDatabase() async {
@@ -565,7 +591,10 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void dispose() {
-    db.close();
+    _refreshTimer?.cancel();
+    if (widget.db == null && widget.enableDatabase) {
+      db.close();
+    }
     super.dispose();
   }
 }

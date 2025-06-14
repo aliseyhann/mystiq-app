@@ -4,6 +4,7 @@ import 'package:mystiq_fortune_app/backend/notification_service.dart';
 import 'package:mystiq_fortune_app/database/constant.dart';
 import 'package:mystiq_fortune_app/home_page.dart';
 import 'package:mystiq_fortune_app/backend/session_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FortuneTellerProfilePage extends StatefulWidget {
   final String email;
@@ -126,7 +127,9 @@ class _FortuneTellerProfilePageState extends State<FortuneTellerProfilePage> {
           ),
           TextButton(
             onPressed: () async {
-              await SessionService.clearSession();
+              final prefs = await SharedPreferences.getInstance();
+              final sessionService = SessionService(prefs);
+              await sessionService.clearSession();
               if (mounted) {
                 Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(builder: (context) => const HomePage()),

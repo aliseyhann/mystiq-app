@@ -5,7 +5,8 @@ import 'dart:convert';
 import 'dart:io';
 
 class NotificationService {
-  static final FlutterLocalNotificationsPlugin _notifications = FlutterLocalNotificationsPlugin();
+  final FlutterLocalNotificationsPlugin _notifications;
+  SharedPreferences? _prefs;
   static const String _prefsKey = 'notifications_enabled';
 
   static String get RABBITMQ_HOST {
@@ -20,6 +21,20 @@ class NotificationService {
   static const int RABBITMQ_PORT = 5672;
   static const String RABBITMQ_USER = 'guest';
   static const String RABBITMQ_PASS = 'guest';
+
+  NotificationService({
+    FlutterLocalNotificationsPlugin? notifications,
+    SharedPreferences? prefs,
+  }) : _notifications = notifications ?? FlutterLocalNotificationsPlugin() {
+    if (prefs != null) {
+      _prefs = prefs;
+    }
+  }
+
+  Future<SharedPreferences> get _getPrefs async {
+    _prefs ??= await SharedPreferences.getInstance();
+    return _prefs!;
+  }
 
   Future<void> initialize(String userEmail) async {
     try {
@@ -270,12 +285,12 @@ class NotificationService {
   }
 
   Future<void> setNotificationsEnabled(bool enabled) async {
-    final prefs = await SharedPreferences.getInstance();
+    final prefs = await _getPrefs;
     await prefs.setBool(_prefsKey, enabled);
   }
 
   Future<bool> getNotificationsEnabled() async {
-    final prefs = await SharedPreferences.getInstance();
+    final prefs = await _getPrefs;
     return prefs.getBool(_prefsKey) ?? true;
   }
 } 

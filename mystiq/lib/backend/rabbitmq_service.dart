@@ -14,7 +14,8 @@ class RabbitMQService {
   }
 }
 
-void listenForResetRequests() async {
+// Test edilebilirlik için opsiyonel client parametresi eklendi
+dynamic listenForResetRequests({Client? client}) async {
   try {
     final connectionSettings = ConnectionSettings(
       host: RabbitMQService.host,
@@ -22,7 +23,7 @@ void listenForResetRequests() async {
       authProvider: PlainAuthenticator('guest', 'guest'),
     );
 
-    final client = Client(settings: connectionSettings);
+    client ??= Client(settings: connectionSettings);
     final channel = await client.channel();
     final queue = await channel.queue('reset_queue', durable: true);
 

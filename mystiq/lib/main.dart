@@ -6,6 +6,7 @@ import 'package:mystiq_fortune_app/pages/MainPage/main_page_normal_user.dart';
 import 'package:mystiq_fortune_app/backend/session_service.dart';
 import 'package:mystiq_fortune_app/backend/notification_service.dart';
 import 'home_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
   await dotenv.load(fileName: ".env");
@@ -13,7 +14,9 @@ Future<void> main() async {
   await MongoDatabase.connect();
   
   // Önce oturum bilgisini kontrol et
-  final sessionData = await SessionService.getSession();
+  final prefs = await SharedPreferences.getInstance();
+  final sessionService = SessionService(prefs);
+  final sessionData = await sessionService.getSession();
   final notificationService = NotificationService();
   
   // Eğer aktif oturum varsa bildirimleri başlat
@@ -22,11 +25,12 @@ Future<void> main() async {
   }
   
   print("database connected.");
-  runApp(const MyApp());
+  runApp(MyApp(sessionService: sessionService));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final SessionService sessionService;
+  const MyApp({super.key, required this.sessionService});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +41,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: FutureBuilder<Map<String, String?>>(
-        future: SessionService.getSession(),
+        future: sessionService.getSession(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());

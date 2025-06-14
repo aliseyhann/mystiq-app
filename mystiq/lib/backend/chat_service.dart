@@ -1,40 +1,37 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:mongo_dart/mongo_dart.dart' as mongo;
-import 'package:mystiq_fortune_app/database/constant.dart';
 import 'package:dart_amqp/dart_amqp.dart';
-import 'dart:io';
 
 class ChatService {
-  static final ChatService _instance = ChatService._internal();
-  factory ChatService() => _instance;
-  ChatService._internal();
-
   mongo.Db? _db;
   mongo.DbCollection? _messagesCollection;
   Client? _client;
   Channel? _channel;
   Consumer? _consumer;
-  
+
+  ChatService({
+    mongo.Db? db,
+    mongo.DbCollection? messagesCollection,
+    Client? client,
+    Channel? channel,
+    Consumer? consumer,
+  }) {
+    _db = db;
+    _messagesCollection = messagesCollection;
+    _client = client;
+    _channel = channel;
+    _consumer = consumer;
+  }
+
   Future<void> initialize() async {
     try {
       if (_db == null || !_db!.isConnected) {
-        _db = await mongo.Db.create(MONGO_URL);
-        await _db!.open();
-        _messagesCollection = _db!.collection('chat_messages');
+        throw Exception('Database connection is required');
       }
       
       if (_client == null) {
-        _client = Client(
-          settings: ConnectionSettings(
-            host: Platform.isAndroid ? '10.0.2.2' : 'localhost',
-            port: 5672,
-            virtualHost: '/',
-            authProvider: const PlainAuthenticator('guest', 'guest'),
-          ),
-        );
-        
-        _channel = await _client!.channel();
+        throw Exception('RabbitMQ client is required');
       }
     } catch (e) {
       print('Chat servisi başlatma hatası: $e');
@@ -49,6 +46,10 @@ class ChatService {
     required String message,
     required String senderName,
   }) async {
+    if (_messagesCollection == null) {
+      throw Exception('Messages collection is not initialized');
+    }
+
     try {
       final messageData = {
         'senderEmail': senderEmail,

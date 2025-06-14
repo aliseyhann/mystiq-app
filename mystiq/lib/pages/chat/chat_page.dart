@@ -8,6 +8,7 @@ class ChatPage extends StatefulWidget {
   final String currentUserName;
   final String recipientEmail;
   final String recipientName;
+  final ChatService? chatService;
 
   const ChatPage({
     Key? key,
@@ -15,6 +16,7 @@ class ChatPage extends StatefulWidget {
     required this.currentUserName,
     required this.recipientEmail,
     required this.recipientName,
+    this.chatService,
   }) : super(key: key);
 
   @override
@@ -22,20 +24,20 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
+  late final ChatService _chatService;
   final TextEditingController _messageController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
   final List<Map<String, dynamic>> _messages = [];
-  final ChatService _chatService = ChatService();
   Timer? _refreshTimer;
 
   @override
   void initState() {
     super.initState();
+    _chatService = widget.chatService ?? ChatService();
     _initializeChat();
-    // Her 5 saniyede bir mesajları yenile
     _refreshTimer = Timer.periodic(const Duration(seconds: 5), (_) {
       if (mounted) {
-        _loadMessages();
+        setState(() {});
       }
     });
   }

@@ -6,15 +6,17 @@ class SessionService {
   static const String _keyLastLogin = 'last_login';
   static const int sessionDurationMinutes = 30;
 
-  static Future<void> saveSession(String email, String role) async {
-    final prefs = await SharedPreferences.getInstance();
+  final SharedPreferences prefs;
+
+  SessionService(this.prefs);
+
+  Future<void> saveSession(String email, String role) async {
     await prefs.setString(_keyEmail, email);
     await prefs.setString(_keyRole, role);
     await prefs.setInt(_keyLastLogin, DateTime.now().millisecondsSinceEpoch);
   }
 
-  static Future<Map<String, String?>> getSession() async {
-    final prefs = await SharedPreferences.getInstance();
+  Future<Map<String, String?>> getSession() async {
     final email = prefs.getString(_keyEmail);
     final role = prefs.getString(_keyRole);
     final lastLogin = prefs.getInt(_keyLastLogin);
@@ -35,8 +37,7 @@ class SessionService {
     return {'email': null, 'role': null};
   }
 
-  static Future<void> clearSession() async {
-    final prefs = await SharedPreferences.getInstance();
+  Future<void> clearSession() async {
     await prefs.remove(_keyEmail);
     await prefs.remove(_keyRole);
     await prefs.remove(_keyLastLogin);

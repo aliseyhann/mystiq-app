@@ -7,11 +7,13 @@ import 'dart:async';
 class ChatHistoryPage extends StatefulWidget {
   final String currentUserEmail;
   final String currentUserName;
+  final ChatService? chatService;
 
   const ChatHistoryPage({
     Key? key,
     required this.currentUserEmail,
     required this.currentUserName,
+    this.chatService,
   }) : super(key: key);
 
   @override
@@ -19,12 +21,13 @@ class ChatHistoryPage extends StatefulWidget {
 }
 
 class _ChatHistoryPageState extends State<ChatHistoryPage> {
-  final ChatService _chatService = ChatService();
+  late final ChatService _chatService;
   Timer? _refreshTimer;
 
   @override
   void initState() {
     super.initState();
+    _chatService = widget.chatService ?? ChatService();
     _initializeChatHistory();
     _refreshTimer = Timer.periodic(const Duration(seconds: 30), (_) {
       if (mounted) {

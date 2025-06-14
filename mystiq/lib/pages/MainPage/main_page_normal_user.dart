@@ -12,11 +12,13 @@ import 'dart:async';
 class MainPageNormalUser extends StatefulWidget {
   final String email;
   final String name;
+  final bool enableTimer;
 
   const MainPageNormalUser({
     Key? key,
     required this.email,
     required this.name,
+    this.enableTimer = true,
   }) : super(key: key);
 
   @override
@@ -25,7 +27,7 @@ class MainPageNormalUser extends StatefulWidget {
 
 class _MainPageNormalUserState extends State<MainPageNormalUser> {
   int _selectedIndex = 0; 
-  late Timer _timer;
+  Timer? _timer;
   String _currentTime = '';
   String _currentDate = '';
 
@@ -35,9 +37,11 @@ class _MainPageNormalUserState extends State<MainPageNormalUser> {
   void initState() {
     super.initState();
     _updateDateTime();
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      _updateDateTime();
-    });
+    if (widget.enableTimer) {
+      _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+        _updateDateTime();
+      });
+    }
     _pages = [
       _buildHomePage(),
       CoffeeFortunePage(email: widget.email),
@@ -102,6 +106,8 @@ class _MainPageNormalUserState extends State<MainPageNormalUser> {
               child: HomePage(
                 email: widget.email,
                 name: widget.name,
+                enableTimer: widget.enableTimer,
+                enableDatabase: widget.enableTimer,
               ),
             ),
           ),
@@ -112,7 +118,7 @@ class _MainPageNormalUserState extends State<MainPageNormalUser> {
 
   @override
   void dispose() {
-    _timer.cancel();
+    _timer?.cancel();
     super.dispose();
   }
 
@@ -236,6 +242,7 @@ class _MainPageNormalUserState extends State<MainPageNormalUser> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: const Key('mainPageNormalUserScaffold'),
       body: _pages[_selectedIndex], 
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,

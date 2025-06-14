@@ -5,16 +5,26 @@ import 'dart:convert';
 import 'package:mongo_dart/mongo_dart.dart' as mongo;
 import 'package:mystiq_fortune_app/database/constant.dart';
 import 'package:mystiq_fortune_app/backend/notification_service.dart';
+import 'package:mystiq_fortune_app/backend/chat_service.dart';
+import 'dart:async';
 
 class CoffeeFortunePage extends StatefulWidget {
-  const CoffeeFortunePage({super.key, required this.email});
   final String email;
+  final ChatService? chatService;
+
+  const CoffeeFortunePage({
+    Key? key,
+    required this.email,
+    this.chatService,
+  }) : super(key: key);
 
   @override
-  _CoffeeFortunePageState createState() => _CoffeeFortunePageState();
+  State<CoffeeFortunePage> createState() => _CoffeeFortunePageState();
 }
 
 class _CoffeeFortunePageState extends State<CoffeeFortunePage> {
+  late final ChatService _chatService;
+  Timer? _refreshTimer;
   late mongo.Db db;
   late mongo.DbCollection usersCollection;
   late mongo.DbCollection fortuneRequestsCollection;
@@ -24,6 +34,13 @@ class _CoffeeFortunePageState extends State<CoffeeFortunePage> {
   @override
   void initState() {
     super.initState();
+    _chatService = widget.chatService ?? ChatService();
+    _initializeChat();
+    _refreshTimer = Timer.periodic(const Duration(seconds: 5), (_) {
+      if (mounted) {
+        setState(() {});
+      }
+    });
     _connectToDatabase();
   }
 
@@ -40,6 +57,8 @@ class _CoffeeFortunePageState extends State<CoffeeFortunePage> {
 
   @override
   void dispose() {
+    _refreshTimer?.cancel();
+    _chatService.dispose();
     db.close();
     super.dispose();
   }
@@ -232,6 +251,19 @@ class _CoffeeFortunePageState extends State<CoffeeFortunePage> {
       title: 'New Coffee Fortune Request',
       message: message,
     );
+  }
+
+  Future<void> _initializeChat() async {
+    try {
+      await _chatService.initialize();
+    } catch (e) {
+      print('Chat servisi başlatma hatası: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Bağlantı hatası oluştu. Lütfen tekrar deneyin.')),
+        );
+      }
+    }
   }
 
   @override

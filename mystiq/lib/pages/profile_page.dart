@@ -4,10 +4,21 @@ import 'package:mystiq_fortune_app/database/constant.dart';
 import 'package:mystiq_fortune_app/homepage_routing/login_page.dart';
 import 'package:mystiq_fortune_app/backend/session_service.dart';
 import 'package:mystiq_fortune_app/backend/notification_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
   final String email;
-  const ProfilePage({Key? key, required this.email}) : super(key: key);
+  final bool enableDatabase;
+  final Map<String, dynamic>? mockData;
+  final NotificationService? notificationService;
+
+  const ProfilePage({
+    Key? key, 
+    required this.email,
+    this.enableDatabase = true,
+    this.mockData,
+    this.notificationService,
+  }) : super(key: key);
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -18,11 +29,24 @@ class _ProfilePageState extends State<ProfilePage> {
   late mongo.DbCollection usersCollection;
   Map<String, dynamic>? userData;
   bool isLoading = true;
+  late NotificationService _notificationService;
 
   @override
   void initState() {
     super.initState();
-    _connectToDatabase();
+    _notificationService = widget.notificationService ?? NotificationService();
+    if (widget.mockData != null) {
+      setState(() {
+        userData = widget.mockData;
+        isLoading = false;
+      });
+    } else if (widget.enableDatabase) {
+      _connectToDatabase();
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   void _connectToDatabase() async {
@@ -33,6 +57,11 @@ class _ProfilePageState extends State<ProfilePage> {
       await _loadUserData();
     } catch (e) {
       print("Database connection error: $e");
+      if (mounted) {
+        setState(() {
+          isLoading = false;
+        });
+      }
     }
   }
 
@@ -519,7 +548,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
                 trailing: FutureBuilder<bool>(
-                  future: NotificationService().getNotificationsEnabled(),
+                  future: _notificationService.getNotificationsEnabled(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const SizedBox(
@@ -535,7 +564,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     return Switch(
                       value: enabled,
                       onChanged: (value) async {
-                        await NotificationService().setNotificationsEnabled(value);
+                        await _notificationService.setNotificationsEnabled(value);
                         setState(() {});
                       },
                       activeColor: Colors.purple,
@@ -551,10 +580,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 borderRadius: BorderRadius.circular(15),
               ),
               child: ListTile(
-                leading: const Icon(
-                  Icons.logout,
-                  color: Colors.purple,
-                ),
+                leading: const Icon(Icons.logout, color: Colors.purple),
                 title: const Text(
                   'Logout',
                   style: TextStyle(
@@ -589,7 +615,9 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         ElevatedButton(
                           onPressed: () async {
-                            await SessionService.clearSession();
+                            final prefs = await SharedPreferences.getInstance();
+                            final sessionService = SessionService(prefs);
+                            await sessionService.clearSession();
                             if (mounted) {
                               Navigator.pushAndRemoveUntil(
                                 context,
@@ -637,7 +665,9 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   void dispose() {
-    db.close();
+    if (widget.enableDatabase) {
+      db.close();
+    }
     super.dispose();
   }
 }
