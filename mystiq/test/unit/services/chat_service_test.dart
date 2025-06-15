@@ -4,6 +4,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mystiq_fortune_app/backend/chat_service.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:dart_amqp/dart_amqp.dart';
+import 'dart:async';
 
 @GenerateMocks([
   Db,
@@ -16,6 +17,9 @@ import 'package:dart_amqp/dart_amqp.dart';
   WriteResult,
 ])
 import 'chat_service_test.mocks.dart';
+
+class MockMessage extends Mock implements AmqpMessage {}
+class MockSubscription extends Mock implements StreamSubscription<AmqpMessage> {}
 
 void main() {
   late ChatService chatService;
@@ -230,6 +234,116 @@ void main() {
         ),
         throwsA(isA<Exception>()),
       );
+    });
+
+    test('listenToMessages should print error and rethrow if an exception occurs (outer catch)', () async {
+      // Arrange: _channel null olursa outer catch'e girer
+      chatService = ChatService(
+        db: mockDb,
+        messagesCollection: mockCollection,
+        client: mockClient,
+        channel: null,
+        consumer: mockConsumer,
+      );
+
+      // Act & Assert
+      expect(
+        () async => await chatService.listenToMessages(
+          'test@example.com',
+          (_) {},
+        ),
+        throwsA(isA<Exception>()),
+      );
+    });
+
+    test('listenToMessages should print error and reconnect if inner try-catch fails', () async {
+      // Arrange
+      when(mockChannel.exchange(any, any, durable: anyNamed('durable')))
+          .thenThrow(Exception('RabbitMQ dinleme hatası'));
+      chatService = ChatService(
+        db: mockDb,
+        messagesCollection: mockCollection,
+        client: mockClient,
+        channel: mockChannel,
+        consumer: mockConsumer,
+      );
+
+      // Act & Assert
+      expect(
+        () async => await chatService.listenToMessages(
+          'test@example.com',
+          (_) {},
+        ),
+        throwsA(isA<Exception>()),
+      );
+    });
+
+    test('listenToMessages should print error and reject message if message processing fails', () async {
+      // Arrange
+      final mockMessage = MockMessage();
+      when(mockChannel.exchange(any, any, durable: anyNamed('durable')))
+          .thenAnswer((_) async => mockExchange);
+      when(mockChannel.queue(any, durable: anyNamed('durable')))
+          .thenAnswer((_) async => mockQueue);
+      when(mockQueue.bind(any, any)).thenAnswer((_) async => mockQueue);
+      when(mockQueue.consume()).thenAnswer((_) async => mockConsumer);
+      final mockSubscription = MockSubscription();
+      when(mockConsumer.listen(any,
+              onError: anyNamed('onError')))
+          .thenAnswer((invocation) {
+        final onData = invocation.positionalArguments[0] as Function;
+        // Simüle edilen mesaj işleme hatası
+        onData(mockMessage);
+        return mockSubscription as StreamSubscription<AmqpMessage>;
+      });
+      when(mockMessage.reject(false)).thenReturn(null);
+
+      chatService = ChatService(
+        db: mockDb,
+        messagesCollection: mockCollection,
+        client: mockClient,
+        channel: mockChannel,
+        consumer: mockConsumer,
+      );
+
+      // Act
+      await chatService.listenToMessages(
+        'test@example.com',
+        (_) {},
+      );
+      // Burada exception fırlatılmaz, sadece print ve reject çalışır
+    });
+
+    test('listenToMessages should print error and reconnect if onError is triggered', () async {
+      // Arrange
+      when(mockChannel.exchange(any, any, durable: anyNamed('durable')))
+          .thenAnswer((_) async => mockExchange);
+      when(mockChannel.queue(any, durable: anyNamed('durable')))
+          .thenAnswer((_) async => mockQueue);
+      when(mockQueue.bind(any, any)).thenAnswer((_) async => mockQueue);
+      when(mockQueue.consume()).thenAnswer((_) async => mockConsumer);
+      final mockSubscription = MockSubscription();
+      when(mockConsumer.listen(any, onError: anyNamed('onError')))
+          .thenAnswer((invocation) {
+        final onError = invocation.namedArguments[#onError] as Function?;
+        if (onError != null) onError(Exception('Mesaj dinleme hatası'));
+        return mockSubscription as StreamSubscription<AmqpMessage>;
+      });
+
+      chatService = ChatService(
+        db: mockDb,
+        messagesCollection: mockCollection,
+        client: mockClient,
+        channel: mockChannel,
+        consumer: mockConsumer,
+      );
+
+      // Act
+      await chatService.listenToMessages(
+        'test@example.com',
+        (_) {},
+      );
+      // Burada exception fırlatılmaz, sadece print ve reconnect çalışır
     });
   });
 } 

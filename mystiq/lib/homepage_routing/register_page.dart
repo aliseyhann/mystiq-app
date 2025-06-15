@@ -7,7 +7,8 @@ import 'package:mystiq_fortune_app/homepage_routing/login_page.dart';
 
 class RegisterPage extends StatefulWidget {
   final String role;
-  const RegisterPage({super.key, required this.role});
+  final String assetPath;
+  const RegisterPage({Key? key, required this.role, this.assetPath = '/Users/aliseyhan/mobile-application-development-course/mystiq_fortune_app/assets/google_logo.svg'}) : super(key: key);
 
   @override
   _RegisterPageState createState() => _RegisterPageState();
@@ -219,7 +220,7 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
               onPressed: _selectedRole != null ? googleLogin : null,
                icon: SvgPicture.asset(
-                '/Users/aliseyhan/mobile-application-development-course/mystiq_fortune_app/assets/google_logo.svg',
+                widget.assetPath,
                 width: 24,
                 height: 24,
               ),

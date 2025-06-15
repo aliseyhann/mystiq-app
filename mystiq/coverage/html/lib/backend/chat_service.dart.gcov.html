@@ -31,13 +31,13 @@
             <td class="headerValue">lcov.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">68.2&nbsp;%</td>
+            <td class="headerCovTableEntryMed">86.9&nbsp;%</td>
             <td class="headerCovTableEntry">107</td>
-            <td class="headerCovTableEntry">73</td>
+            <td class="headerCovTableEntry">93</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-06-14 20:07:48</td>
+            <td class="headerValue">2025-06-14 22:49:24</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -174,37 +174,37 @@
 <span id="L112"><span class="lineNum">     112</span>              :     }</span>
 <span id="L113"><span class="lineNum">     113</span>              :   }</span>
 <span id="L114"><span class="lineNum">     114</span>              : </span>
-<span id="L115"><span class="lineNum">     115</span> <span class="tlaUNC">           0 :   Future&lt;void&gt; listenToMessages(</span></span>
+<span id="L115"><span class="lineNum">     115</span> <span class="tlaGNC">           1 :   Future&lt;void&gt; listenToMessages(</span></span>
 <span id="L116"><span class="lineNum">     116</span>              :     String userEmail,</span>
 <span id="L117"><span class="lineNum">     117</span>              :     Function(Map&lt;String, dynamic&gt;) onMessageReceived,</span>
 <span id="L118"><span class="lineNum">     118</span>              :   ) async {</span>
 <span id="L119"><span class="lineNum">     119</span>              :     try {</span>
-<span id="L120"><span class="lineNum">     120</span> <span class="tlaUNC">           0 :       if (_channel != null) {</span></span>
+<span id="L120"><span class="lineNum">     120</span> <span class="tlaGNC">           1 :       if (_channel != null) {</span></span>
 <span id="L121"><span class="lineNum">     121</span>              :         try {</span>
-<span id="L122"><span class="lineNum">     122</span> <span class="tlaUNC">           0 :           final exchange = await _channel!.exchange(</span></span>
+<span id="L122"><span class="lineNum">     122</span> <span class="tlaGNC">           2 :           final exchange = await _channel!.exchange(</span></span>
 <span id="L123"><span class="lineNum">     123</span>              :             'chat',</span>
 <span id="L124"><span class="lineNum">     124</span>              :             ExchangeType.DIRECT,</span>
 <span id="L125"><span class="lineNum">     125</span>              :             durable: false,</span>
 <span id="L126"><span class="lineNum">     126</span>              :           );</span>
 <span id="L127"><span class="lineNum">     127</span>              : </span>
-<span id="L128"><span class="lineNum">     128</span> <span class="tlaUNC">           0 :           final queueName = 'chat.$userEmail';</span></span>
-<span id="L129"><span class="lineNum">     129</span> <span class="tlaUNC">           0 :           final queue = await _channel!.queue(</span></span>
+<span id="L128"><span class="lineNum">     128</span> <span class="tlaGNC">           1 :           final queueName = 'chat.$userEmail';</span></span>
+<span id="L129"><span class="lineNum">     129</span> <span class="tlaGNC">           2 :           final queue = await _channel!.queue(</span></span>
 <span id="L130"><span class="lineNum">     130</span>              :             queueName,</span>
 <span id="L131"><span class="lineNum">     131</span>              :             durable: false,</span>
 <span id="L132"><span class="lineNum">     132</span>              :           );</span>
 <span id="L133"><span class="lineNum">     133</span>              : </span>
-<span id="L134"><span class="lineNum">     134</span> <span class="tlaUNC">           0 :           await queue.bind(exchange, queueName);</span></span>
+<span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC">           1 :           await queue.bind(exchange, queueName);</span></span>
 <span id="L135"><span class="lineNum">     135</span>              :           </span>
-<span id="L136"><span class="lineNum">     136</span> <span class="tlaUNC">           0 :           if (_consumer != null) {</span></span>
-<span id="L137"><span class="lineNum">     137</span> <span class="tlaUNC">           0 :             await _consumer!.cancel();</span></span>
-<span id="L138"><span class="lineNum">     138</span> <span class="tlaUNC">           0 :             _consumer = null;</span></span>
+<span id="L136"><span class="lineNum">     136</span> <span class="tlaGNC">           1 :           if (_consumer != null) {</span></span>
+<span id="L137"><span class="lineNum">     137</span> <span class="tlaGNC">           2 :             await _consumer!.cancel();</span></span>
+<span id="L138"><span class="lineNum">     138</span> <span class="tlaGNC">           1 :             _consumer = null;</span></span>
 <span id="L139"><span class="lineNum">     139</span>              :           }</span>
 <span id="L140"><span class="lineNum">     140</span>              :           </span>
-<span id="L141"><span class="lineNum">     141</span> <span class="tlaUNC">           0 :           _consumer = await queue.consume();</span></span>
-<span id="L142"><span class="lineNum">     142</span> <span class="tlaUNC">           0 :           _consumer?.listen(</span></span>
-<span id="L143"><span class="lineNum">     143</span> <span class="tlaUNC">           0 :             (message) {</span></span>
+<span id="L141"><span class="lineNum">     141</span> <span class="tlaGNC">           2 :           _consumer = await queue.consume();</span></span>
+<span id="L142"><span class="lineNum">     142</span> <span class="tlaGNC">           2 :           _consumer?.listen(</span></span>
+<span id="L143"><span class="lineNum">     143</span> <span class="tlaGNC">           1 :             (message) {</span></span>
 <span id="L144"><span class="lineNum">     144</span>              :               try {</span>
-<span id="L145"><span class="lineNum">     145</span> <span class="tlaUNC">           0 :                 final rawData = json.decode(message.payloadAsString) as Map&lt;String, dynamic&gt;;</span></span>
+<span id="L145"><span class="lineNum">     145</span> <span class="tlaGNC">           1 :                 final rawData = json.decode(message.payloadAsString) as Map&lt;String, dynamic&gt;;</span></span>
 <span id="L146"><span class="lineNum">     146</span> <span class="tlaUNC">           0 :                 final messageData = {</span></span>
 <span id="L147"><span class="lineNum">     147</span>              :                   ...rawData,</span>
 <span id="L148"><span class="lineNum">     148</span> <span class="tlaUNC">           0 :                   'timestamp': DateTime.parse(rawData['timestamp'] as String),</span></span>
@@ -213,18 +213,18 @@
 <span id="L151"><span class="lineNum">     151</span> <span class="tlaUNC">           0 :                 onMessageReceived(messageData);</span></span>
 <span id="L152"><span class="lineNum">     152</span> <span class="tlaUNC">           0 :                 message.ack();</span></span>
 <span id="L153"><span class="lineNum">     153</span>              :               } catch (e) {</span>
-<span id="L154"><span class="lineNum">     154</span> <span class="tlaUNC">           0 :                 print('Mesaj işleme hatası: $e');</span></span>
-<span id="L155"><span class="lineNum">     155</span> <span class="tlaUNC">           0 :                 message.reject(false);</span></span>
+<span id="L154"><span class="lineNum">     154</span> <span class="tlaGNC">           2 :                 print('Mesaj işleme hatası: $e');</span></span>
+<span id="L155"><span class="lineNum">     155</span> <span class="tlaGNC">           1 :                 message.reject(false);</span></span>
 <span id="L156"><span class="lineNum">     156</span>              :               }</span>
 <span id="L157"><span class="lineNum">     157</span>              :             },</span>
-<span id="L158"><span class="lineNum">     158</span> <span class="tlaUNC">           0 :             onError: (error) async {</span></span>
-<span id="L159"><span class="lineNum">     159</span> <span class="tlaUNC">           0 :               print('Mesaj dinleme hatası: $error');</span></span>
-<span id="L160"><span class="lineNum">     160</span> <span class="tlaUNC">           0 :               await _reconnect();</span></span>
+<span id="L158"><span class="lineNum">     158</span> <span class="tlaGNC">           1 :             onError: (error) async {</span></span>
+<span id="L159"><span class="lineNum">     159</span> <span class="tlaGNC">           2 :               print('Mesaj dinleme hatası: $error');</span></span>
+<span id="L160"><span class="lineNum">     160</span> <span class="tlaGNC">           1 :               await _reconnect();</span></span>
 <span id="L161"><span class="lineNum">     161</span>              :             },</span>
 <span id="L162"><span class="lineNum">     162</span>              :           );</span>
 <span id="L163"><span class="lineNum">     163</span>              :         } catch (e) {</span>
-<span id="L164"><span class="lineNum">     164</span> <span class="tlaUNC">           0 :           print('RabbitMQ dinleme hatası: $e');</span></span>
-<span id="L165"><span class="lineNum">     165</span> <span class="tlaUNC">           0 :           await _reconnect();</span></span>
+<span id="L164"><span class="lineNum">     164</span> <span class="tlaGNC">           2 :           print('RabbitMQ dinleme hatası: $e');</span></span>
+<span id="L165"><span class="lineNum">     165</span> <span class="tlaGNC">           1 :           await _reconnect();</span></span>
 <span id="L166"><span class="lineNum">     166</span>              :         }</span>
 <span id="L167"><span class="lineNum">     167</span>              :       }</span>
 <span id="L168"><span class="lineNum">     168</span>              :     } catch (e) {</span>

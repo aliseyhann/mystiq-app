@@ -3,24 +3,28 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i3;
+import 'dart:async' as _i4;
 
+import 'package:dart_amqp/src/client.dart' as _i2;
+import 'package:dart_amqp/src/enums.dart' as _i5;
+import 'package:dart_amqp/src/protocol.dart' as _i3;
 import 'package:flutter_local_notifications/src/flutter_local_notifications_plugin.dart'
-    as _i2;
-import 'package:flutter_local_notifications/src/initialization_settings.dart'
-    as _i4;
-import 'package:flutter_local_notifications/src/notification_details.dart'
     as _i6;
-import 'package:flutter_local_notifications/src/platform_specifics/android/schedule_mode.dart'
+import 'package:flutter_local_notifications/src/initialization_settings.dart'
+    as _i7;
+import 'package:flutter_local_notifications/src/notification_details.dart'
     as _i9;
+import 'package:flutter_local_notifications/src/platform_specifics/android/schedule_mode.dart'
+    as _i12;
 import 'package:flutter_local_notifications/src/platform_specifics/ios/enums.dart'
-    as _i8;
-import 'package:flutter_local_notifications/src/types.dart' as _i10;
+    as _i11;
+import 'package:flutter_local_notifications/src/types.dart' as _i13;
 import 'package:flutter_local_notifications_platform_interface/flutter_local_notifications_platform_interface.dart'
-    as _i5;
+    as _i8;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:shared_preferences/src/shared_preferences_legacy.dart' as _i11;
-import 'package:timezone/timezone.dart' as _i7;
+import 'package:mockito/src/dummies.dart' as _i15;
+import 'package:shared_preferences/src/shared_preferences_legacy.dart' as _i14;
+import 'package:timezone/timezone.dart' as _i10;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -35,21 +39,104 @@ import 'package:timezone/timezone.dart' as _i7;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
+class _FakeConnectionSettings_0 extends _i1.SmartFake
+    implements _i2.ConnectionSettings {
+  _FakeConnectionSettings_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeTuningSettings_1 extends _i1.SmartFake
+    implements _i3.TuningSettings {
+  _FakeTuningSettings_1(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeChannel_2 extends _i1.SmartFake implements _i2.Channel {
+  _FakeChannel_2(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeStreamSubscription_3<T> extends _i1.SmartFake
+    implements _i4.StreamSubscription<T> {
+  _FakeStreamSubscription_3(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeQueue_4 extends _i1.SmartFake implements _i2.Queue {
+  _FakeQueue_4(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeExchange_5 extends _i1.SmartFake implements _i2.Exchange {
+  _FakeExchange_5(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeExchangeType_6 extends _i1.SmartFake implements _i5.ExchangeType {
+  _FakeExchangeType_6(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeConsumer_7 extends _i1.SmartFake implements _i2.Consumer {
+  _FakeConsumer_7(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [FlutterLocalNotificationsPlugin].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockFlutterLocalNotificationsPlugin extends _i1.Mock
-    implements _i2.FlutterLocalNotificationsPlugin {
+    implements _i6.FlutterLocalNotificationsPlugin {
   MockFlutterLocalNotificationsPlugin() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Future<bool?> initialize(
-    _i4.InitializationSettings? initializationSettings, {
-    _i5.DidReceiveNotificationResponseCallback?
+  _i4.Future<bool?> initialize(
+    _i7.InitializationSettings? initializationSettings, {
+    _i8.DidReceiveNotificationResponseCallback?
         onDidReceiveNotificationResponse,
-    _i5.DidReceiveBackgroundNotificationResponseCallback?
+    _i8.DidReceiveBackgroundNotificationResponseCallback?
         onDidReceiveBackgroundNotificationResponse,
   }) =>
       (super.noSuchMethod(
@@ -62,25 +149,25 @@ class MockFlutterLocalNotificationsPlugin extends _i1.Mock
                 onDidReceiveBackgroundNotificationResponse,
           },
         ),
-        returnValue: _i3.Future<bool?>.value(),
-      ) as _i3.Future<bool?>);
+        returnValue: _i4.Future<bool?>.value(),
+      ) as _i4.Future<bool?>);
 
   @override
-  _i3.Future<_i5.NotificationAppLaunchDetails?>
+  _i4.Future<_i8.NotificationAppLaunchDetails?>
       getNotificationAppLaunchDetails() => (super.noSuchMethod(
             Invocation.method(
               #getNotificationAppLaunchDetails,
               [],
             ),
-            returnValue: _i3.Future<_i5.NotificationAppLaunchDetails?>.value(),
-          ) as _i3.Future<_i5.NotificationAppLaunchDetails?>);
+            returnValue: _i4.Future<_i8.NotificationAppLaunchDetails?>.value(),
+          ) as _i4.Future<_i8.NotificationAppLaunchDetails?>);
 
   @override
-  _i3.Future<void> show(
+  _i4.Future<void> show(
     int? id,
     String? title,
     String? body,
-    _i6.NotificationDetails? notificationDetails, {
+    _i9.NotificationDetails? notificationDetails, {
     String? payload,
   }) =>
       (super.noSuchMethod(
@@ -94,12 +181,12 @@ class MockFlutterLocalNotificationsPlugin extends _i1.Mock
           ],
           {#payload: payload},
         ),
-        returnValue: _i3.Future<void>.value(),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 
   @override
-  _i3.Future<void> cancel(
+  _i4.Future<void> cancel(
     int? id, {
     String? tag,
   }) =>
@@ -109,32 +196,32 @@ class MockFlutterLocalNotificationsPlugin extends _i1.Mock
           [id],
           {#tag: tag},
         ),
-        returnValue: _i3.Future<void>.value(),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 
   @override
-  _i3.Future<void> cancelAll() => (super.noSuchMethod(
+  _i4.Future<void> cancelAll() => (super.noSuchMethod(
         Invocation.method(
           #cancelAll,
           [],
         ),
-        returnValue: _i3.Future<void>.value(),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 
   @override
-  _i3.Future<void> zonedSchedule(
+  _i4.Future<void> zonedSchedule(
     int? id,
     String? title,
     String? body,
-    _i7.TZDateTime? scheduledDate,
-    _i6.NotificationDetails? notificationDetails, {
-    required _i8.UILocalNotificationDateInterpretation?
+    _i10.TZDateTime? scheduledDate,
+    _i9.NotificationDetails? notificationDetails, {
+    required _i11.UILocalNotificationDateInterpretation?
         uiLocalNotificationDateInterpretation,
-    required _i9.AndroidScheduleMode? androidScheduleMode,
+    required _i12.AndroidScheduleMode? androidScheduleMode,
     String? payload,
-    _i10.DateTimeComponents? matchDateTimeComponents,
+    _i13.DateTimeComponents? matchDateTimeComponents,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -154,18 +241,18 @@ class MockFlutterLocalNotificationsPlugin extends _i1.Mock
             #matchDateTimeComponents: matchDateTimeComponents,
           },
         ),
-        returnValue: _i3.Future<void>.value(),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 
   @override
-  _i3.Future<void> periodicallyShow(
+  _i4.Future<void> periodicallyShow(
     int? id,
     String? title,
     String? body,
-    _i5.RepeatInterval? repeatInterval,
-    _i6.NotificationDetails? notificationDetails, {
-    required _i9.AndroidScheduleMode? androidScheduleMode,
+    _i8.RepeatInterval? repeatInterval,
+    _i9.NotificationDetails? notificationDetails, {
+    required _i12.AndroidScheduleMode? androidScheduleMode,
     String? payload,
   }) =>
       (super.noSuchMethod(
@@ -183,19 +270,19 @@ class MockFlutterLocalNotificationsPlugin extends _i1.Mock
             #payload: payload,
           },
         ),
-        returnValue: _i3.Future<void>.value(),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 
   @override
-  _i3.Future<void> periodicallyShowWithDuration(
+  _i4.Future<void> periodicallyShowWithDuration(
     int? id,
     String? title,
     String? body,
     Duration? repeatDurationInterval,
-    _i6.NotificationDetails? notificationDetails, {
-    _i9.AndroidScheduleMode? androidScheduleMode =
-        _i9.AndroidScheduleMode.exact,
+    _i9.NotificationDetails? notificationDetails, {
+    _i12.AndroidScheduleMode? androidScheduleMode =
+        _i12.AndroidScheduleMode.exact,
     String? payload,
   }) =>
       (super.noSuchMethod(
@@ -213,37 +300,37 @@ class MockFlutterLocalNotificationsPlugin extends _i1.Mock
             #payload: payload,
           },
         ),
-        returnValue: _i3.Future<void>.value(),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 
   @override
-  _i3.Future<List<_i5.PendingNotificationRequest>>
+  _i4.Future<List<_i8.PendingNotificationRequest>>
       pendingNotificationRequests() => (super.noSuchMethod(
             Invocation.method(
               #pendingNotificationRequests,
               [],
             ),
-            returnValue: _i3.Future<List<_i5.PendingNotificationRequest>>.value(
-                <_i5.PendingNotificationRequest>[]),
-          ) as _i3.Future<List<_i5.PendingNotificationRequest>>);
+            returnValue: _i4.Future<List<_i8.PendingNotificationRequest>>.value(
+                <_i8.PendingNotificationRequest>[]),
+          ) as _i4.Future<List<_i8.PendingNotificationRequest>>);
 
   @override
-  _i3.Future<List<_i5.ActiveNotification>> getActiveNotifications() =>
+  _i4.Future<List<_i8.ActiveNotification>> getActiveNotifications() =>
       (super.noSuchMethod(
         Invocation.method(
           #getActiveNotifications,
           [],
         ),
-        returnValue: _i3.Future<List<_i5.ActiveNotification>>.value(
-            <_i5.ActiveNotification>[]),
-      ) as _i3.Future<List<_i5.ActiveNotification>>);
+        returnValue: _i4.Future<List<_i8.ActiveNotification>>.value(
+            <_i8.ActiveNotification>[]),
+      ) as _i4.Future<List<_i8.ActiveNotification>>);
 }
 
 /// A class which mocks [SharedPreferences].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSharedPreferences extends _i1.Mock implements _i11.SharedPreferences {
+class MockSharedPreferences extends _i1.Mock implements _i14.SharedPreferences {
   MockSharedPreferences() {
     _i1.throwOnMissingStub(this);
   }
@@ -304,7 +391,7 @@ class MockSharedPreferences extends _i1.Mock implements _i11.SharedPreferences {
       )) as List<String>?);
 
   @override
-  _i3.Future<bool> setBool(
+  _i4.Future<bool> setBool(
     String? key,
     bool? value,
   ) =>
@@ -316,11 +403,11 @@ class MockSharedPreferences extends _i1.Mock implements _i11.SharedPreferences {
             value,
           ],
         ),
-        returnValue: _i3.Future<bool>.value(false),
-      ) as _i3.Future<bool>);
+        returnValue: _i4.Future<bool>.value(false),
+      ) as _i4.Future<bool>);
 
   @override
-  _i3.Future<bool> setInt(
+  _i4.Future<bool> setInt(
     String? key,
     int? value,
   ) =>
@@ -332,11 +419,11 @@ class MockSharedPreferences extends _i1.Mock implements _i11.SharedPreferences {
             value,
           ],
         ),
-        returnValue: _i3.Future<bool>.value(false),
-      ) as _i3.Future<bool>);
+        returnValue: _i4.Future<bool>.value(false),
+      ) as _i4.Future<bool>);
 
   @override
-  _i3.Future<bool> setDouble(
+  _i4.Future<bool> setDouble(
     String? key,
     double? value,
   ) =>
@@ -348,11 +435,11 @@ class MockSharedPreferences extends _i1.Mock implements _i11.SharedPreferences {
             value,
           ],
         ),
-        returnValue: _i3.Future<bool>.value(false),
-      ) as _i3.Future<bool>);
+        returnValue: _i4.Future<bool>.value(false),
+      ) as _i4.Future<bool>);
 
   @override
-  _i3.Future<bool> setString(
+  _i4.Future<bool> setString(
     String? key,
     String? value,
   ) =>
@@ -364,11 +451,11 @@ class MockSharedPreferences extends _i1.Mock implements _i11.SharedPreferences {
             value,
           ],
         ),
-        returnValue: _i3.Future<bool>.value(false),
-      ) as _i3.Future<bool>);
+        returnValue: _i4.Future<bool>.value(false),
+      ) as _i4.Future<bool>);
 
   @override
-  _i3.Future<bool> setStringList(
+  _i4.Future<bool> setStringList(
     String? key,
     List<String>? value,
   ) =>
@@ -380,43 +467,937 @@ class MockSharedPreferences extends _i1.Mock implements _i11.SharedPreferences {
             value,
           ],
         ),
-        returnValue: _i3.Future<bool>.value(false),
-      ) as _i3.Future<bool>);
+        returnValue: _i4.Future<bool>.value(false),
+      ) as _i4.Future<bool>);
 
   @override
-  _i3.Future<bool> remove(String? key) => (super.noSuchMethod(
+  _i4.Future<bool> remove(String? key) => (super.noSuchMethod(
         Invocation.method(
           #remove,
           [key],
         ),
-        returnValue: _i3.Future<bool>.value(false),
-      ) as _i3.Future<bool>);
+        returnValue: _i4.Future<bool>.value(false),
+      ) as _i4.Future<bool>);
 
   @override
-  _i3.Future<bool> commit() => (super.noSuchMethod(
+  _i4.Future<bool> commit() => (super.noSuchMethod(
         Invocation.method(
           #commit,
           [],
         ),
-        returnValue: _i3.Future<bool>.value(false),
-      ) as _i3.Future<bool>);
+        returnValue: _i4.Future<bool>.value(false),
+      ) as _i4.Future<bool>);
 
   @override
-  _i3.Future<bool> clear() => (super.noSuchMethod(
+  _i4.Future<bool> clear() => (super.noSuchMethod(
         Invocation.method(
           #clear,
           [],
         ),
-        returnValue: _i3.Future<bool>.value(false),
-      ) as _i3.Future<bool>);
+        returnValue: _i4.Future<bool>.value(false),
+      ) as _i4.Future<bool>);
 
   @override
-  _i3.Future<void> reload() => (super.noSuchMethod(
+  _i4.Future<void> reload() => (super.noSuchMethod(
         Invocation.method(
           #reload,
           [],
         ),
-        returnValue: _i3.Future<void>.value(),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+}
+
+/// A class which mocks [Client].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockClient extends _i1.Mock implements _i2.Client {
+  MockClient() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.ConnectionSettings get settings => (super.noSuchMethod(
+        Invocation.getter(#settings),
+        returnValue: _FakeConnectionSettings_0(
+          this,
+          Invocation.getter(#settings),
+        ),
+      ) as _i2.ConnectionSettings);
+
+  @override
+  _i3.TuningSettings get tuningSettings => (super.noSuchMethod(
+        Invocation.getter(#tuningSettings),
+        returnValue: _FakeTuningSettings_1(
+          this,
+          Invocation.getter(#tuningSettings),
+        ),
+      ) as _i3.TuningSettings);
+
+  @override
+  bool get handshaking => (super.noSuchMethod(
+        Invocation.getter(#handshaking),
+        returnValue: false,
+      ) as bool);
+
+  @override
+  _i4.Future<dynamic> connect() => (super.noSuchMethod(
+        Invocation.method(
+          #connect,
+          [],
+        ),
+        returnValue: _i4.Future<dynamic>.value(),
+      ) as _i4.Future<dynamic>);
+
+  @override
+  _i4.Future<dynamic> close() => (super.noSuchMethod(
+        Invocation.method(
+          #close,
+          [],
+        ),
+        returnValue: _i4.Future<dynamic>.value(),
+      ) as _i4.Future<dynamic>);
+
+  @override
+  _i4.Future<_i2.Channel> channel() => (super.noSuchMethod(
+        Invocation.method(
+          #channel,
+          [],
+        ),
+        returnValue: _i4.Future<_i2.Channel>.value(_FakeChannel_2(
+          this,
+          Invocation.method(
+            #channel,
+            [],
+          ),
+        )),
+      ) as _i4.Future<_i2.Channel>);
+
+  @override
+  _i4.StreamSubscription<Exception> errorListener(
+    void Function(Exception)? onData, {
+    Function? onError,
+    void Function()? onDone,
+    bool? cancelOnError,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #errorListener,
+          [onData],
+          {
+            #onError: onError,
+            #onDone: onDone,
+            #cancelOnError: cancelOnError,
+          },
+        ),
+        returnValue: _FakeStreamSubscription_3<Exception>(
+          this,
+          Invocation.method(
+            #errorListener,
+            [onData],
+            {
+              #onError: onError,
+              #onDone: onDone,
+              #cancelOnError: cancelOnError,
+            },
+          ),
+        ),
+      ) as _i4.StreamSubscription<Exception>);
+}
+
+/// A class which mocks [Channel].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockChannel extends _i1.Mock implements _i2.Channel {
+  MockChannel() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i4.Future<_i2.Channel> close() => (super.noSuchMethod(
+        Invocation.method(
+          #close,
+          [],
+        ),
+        returnValue: _i4.Future<_i2.Channel>.value(_FakeChannel_2(
+          this,
+          Invocation.method(
+            #close,
+            [],
+          ),
+        )),
+      ) as _i4.Future<_i2.Channel>);
+
+  @override
+  _i4.Future<_i2.Queue> queue(
+    String? name, {
+    bool? passive = false,
+    bool? durable = false,
+    bool? exclusive = false,
+    bool? autoDelete = false,
+    bool? noWait = false,
+    bool? declare = true,
+    Map<String, Object>? arguments,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #queue,
+          [name],
+          {
+            #passive: passive,
+            #durable: durable,
+            #exclusive: exclusive,
+            #autoDelete: autoDelete,
+            #noWait: noWait,
+            #declare: declare,
+            #arguments: arguments,
+          },
+        ),
+        returnValue: _i4.Future<_i2.Queue>.value(_FakeQueue_4(
+          this,
+          Invocation.method(
+            #queue,
+            [name],
+            {
+              #passive: passive,
+              #durable: durable,
+              #exclusive: exclusive,
+              #autoDelete: autoDelete,
+              #noWait: noWait,
+              #declare: declare,
+              #arguments: arguments,
+            },
+          ),
+        )),
+      ) as _i4.Future<_i2.Queue>);
+
+  @override
+  _i4.Future<_i2.Queue> privateQueue({
+    bool? noWait = false,
+    Map<String, Object>? arguments,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #privateQueue,
+          [],
+          {
+            #noWait: noWait,
+            #arguments: arguments,
+          },
+        ),
+        returnValue: _i4.Future<_i2.Queue>.value(_FakeQueue_4(
+          this,
+          Invocation.method(
+            #privateQueue,
+            [],
+            {
+              #noWait: noWait,
+              #arguments: arguments,
+            },
+          ),
+        )),
+      ) as _i4.Future<_i2.Queue>);
+
+  @override
+  _i4.Future<_i2.Exchange> exchange(
+    String? name,
+    _i5.ExchangeType? type, {
+    bool? passive = false,
+    bool? durable = false,
+    bool? noWait = false,
+    Map<String, Object>? arguments,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #exchange,
+          [
+            name,
+            type,
+          ],
+          {
+            #passive: passive,
+            #durable: durable,
+            #noWait: noWait,
+            #arguments: arguments,
+          },
+        ),
+        returnValue: _i4.Future<_i2.Exchange>.value(_FakeExchange_5(
+          this,
+          Invocation.method(
+            #exchange,
+            [
+              name,
+              type,
+            ],
+            {
+              #passive: passive,
+              #durable: durable,
+              #noWait: noWait,
+              #arguments: arguments,
+            },
+          ),
+        )),
+      ) as _i4.Future<_i2.Exchange>);
+
+  @override
+  _i4.Future<_i2.Channel> qos(
+    int? prefetchSize,
+    int? prefetchCount, {
+    bool? global = true,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #qos,
+          [
+            prefetchSize,
+            prefetchCount,
+          ],
+          {#global: global},
+        ),
+        returnValue: _i4.Future<_i2.Channel>.value(_FakeChannel_2(
+          this,
+          Invocation.method(
+            #qos,
+            [
+              prefetchSize,
+              prefetchCount,
+            ],
+            {#global: global},
+          ),
+        )),
+      ) as _i4.Future<_i2.Channel>);
+
+  @override
+  void ack(
+    int? deliveryTag, {
+    bool? multiple = false,
+  }) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #ack,
+          [deliveryTag],
+          {#multiple: multiple},
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i4.Future<_i2.Channel> select() => (super.noSuchMethod(
+        Invocation.method(
+          #select,
+          [],
+        ),
+        returnValue: _i4.Future<_i2.Channel>.value(_FakeChannel_2(
+          this,
+          Invocation.method(
+            #select,
+            [],
+          ),
+        )),
+      ) as _i4.Future<_i2.Channel>);
+
+  @override
+  _i4.Future<_i2.Channel> commit() => (super.noSuchMethod(
+        Invocation.method(
+          #commit,
+          [],
+        ),
+        returnValue: _i4.Future<_i2.Channel>.value(_FakeChannel_2(
+          this,
+          Invocation.method(
+            #commit,
+            [],
+          ),
+        )),
+      ) as _i4.Future<_i2.Channel>);
+
+  @override
+  _i4.Future<_i2.Channel> rollback() => (super.noSuchMethod(
+        Invocation.method(
+          #rollback,
+          [],
+        ),
+        returnValue: _i4.Future<_i2.Channel>.value(_FakeChannel_2(
+          this,
+          Invocation.method(
+            #rollback,
+            [],
+          ),
+        )),
+      ) as _i4.Future<_i2.Channel>);
+
+  @override
+  _i4.Future<_i2.Channel> flow(bool? active) => (super.noSuchMethod(
+        Invocation.method(
+          #flow,
+          [active],
+        ),
+        returnValue: _i4.Future<_i2.Channel>.value(_FakeChannel_2(
+          this,
+          Invocation.method(
+            #flow,
+            [active],
+          ),
+        )),
+      ) as _i4.Future<_i2.Channel>);
+
+  @override
+  _i4.Future<_i2.Channel> recover(bool? requeue) => (super.noSuchMethod(
+        Invocation.method(
+          #recover,
+          [requeue],
+        ),
+        returnValue: _i4.Future<_i2.Channel>.value(_FakeChannel_2(
+          this,
+          Invocation.method(
+            #recover,
+            [requeue],
+          ),
+        )),
+      ) as _i4.Future<_i2.Channel>);
+
+  @override
+  _i4.StreamSubscription<_i2.BasicReturnMessage> basicReturnListener(
+    void Function(_i2.BasicReturnMessage)? onData, {
+    Function? onError,
+    void Function()? onDone,
+    bool? cancelOnError,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #basicReturnListener,
+          [onData],
+          {
+            #onError: onError,
+            #onDone: onDone,
+            #cancelOnError: cancelOnError,
+          },
+        ),
+        returnValue: _FakeStreamSubscription_3<_i2.BasicReturnMessage>(
+          this,
+          Invocation.method(
+            #basicReturnListener,
+            [onData],
+            {
+              #onError: onError,
+              #onDone: onDone,
+              #cancelOnError: cancelOnError,
+            },
+          ),
+        ),
+      ) as _i4.StreamSubscription<_i2.BasicReturnMessage>);
+
+  @override
+  _i4.StreamSubscription<_i2.PublishNotification> publishNotifier(
+    void Function(_i2.PublishNotification)? onData, {
+    Function? onError,
+    void Function()? onDone,
+    bool? cancelOnError,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #publishNotifier,
+          [onData],
+          {
+            #onError: onError,
+            #onDone: onDone,
+            #cancelOnError: cancelOnError,
+          },
+        ),
+        returnValue: _FakeStreamSubscription_3<_i2.PublishNotification>(
+          this,
+          Invocation.method(
+            #publishNotifier,
+            [onData],
+            {
+              #onError: onError,
+              #onDone: onDone,
+              #cancelOnError: cancelOnError,
+            },
+          ),
+        ),
+      ) as _i4.StreamSubscription<_i2.PublishNotification>);
+
+  @override
+  _i4.Future<dynamic> confirmPublishedMessages() => (super.noSuchMethod(
+        Invocation.method(
+          #confirmPublishedMessages,
+          [],
+        ),
+        returnValue: _i4.Future<dynamic>.value(),
+      ) as _i4.Future<dynamic>);
+}
+
+/// A class which mocks [Exchange].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockExchange extends _i1.Mock implements _i2.Exchange {
+  MockExchange() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  String get name => (super.noSuchMethod(
+        Invocation.getter(#name),
+        returnValue: _i15.dummyValue<String>(
+          this,
+          Invocation.getter(#name),
+        ),
+      ) as String);
+
+  @override
+  _i5.ExchangeType get type => (super.noSuchMethod(
+        Invocation.getter(#type),
+        returnValue: _FakeExchangeType_6(
+          this,
+          Invocation.getter(#type),
+        ),
+      ) as _i5.ExchangeType);
+
+  @override
+  _i2.Channel get channel => (super.noSuchMethod(
+        Invocation.getter(#channel),
+        returnValue: _FakeChannel_2(
+          this,
+          Invocation.getter(#channel),
+        ),
+      ) as _i2.Channel);
+
+  @override
+  _i4.Future<_i2.Exchange> delete({
+    bool? ifUnused = false,
+    bool? noWait = false,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #delete,
+          [],
+          {
+            #ifUnused: ifUnused,
+            #noWait: noWait,
+          },
+        ),
+        returnValue: _i4.Future<_i2.Exchange>.value(_FakeExchange_5(
+          this,
+          Invocation.method(
+            #delete,
+            [],
+            {
+              #ifUnused: ifUnused,
+              #noWait: noWait,
+            },
+          ),
+        )),
+      ) as _i4.Future<_i2.Exchange>);
+
+  @override
+  void publish(
+    Object? message,
+    String? routingKey, {
+    _i3.MessageProperties? properties,
+    bool? mandatory = false,
+    bool? immediate = false,
+  }) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #publish,
+          [
+            message,
+            routingKey,
+          ],
+          {
+            #properties: properties,
+            #mandatory: mandatory,
+            #immediate: immediate,
+          },
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i4.Future<_i2.Consumer> bindPrivateQueueConsumer(
+    List<String>? routingKeys, {
+    String? consumerTag,
+    bool? noAck = true,
+    bool? noWait = false,
+    Map<String, Object>? arguments,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #bindPrivateQueueConsumer,
+          [routingKeys],
+          {
+            #consumerTag: consumerTag,
+            #noAck: noAck,
+            #noWait: noWait,
+            #arguments: arguments,
+          },
+        ),
+        returnValue: _i4.Future<_i2.Consumer>.value(_FakeConsumer_7(
+          this,
+          Invocation.method(
+            #bindPrivateQueueConsumer,
+            [routingKeys],
+            {
+              #consumerTag: consumerTag,
+              #noAck: noAck,
+              #noWait: noWait,
+              #arguments: arguments,
+            },
+          ),
+        )),
+      ) as _i4.Future<_i2.Consumer>);
+
+  @override
+  _i4.Future<_i2.Consumer> bindQueueConsumer(
+    String? queueName,
+    List<String>? routingKeys, {
+    String? consumerTag,
+    bool? noAck = true,
+    bool? passive = false,
+    bool? durable = false,
+    bool? exclusive = false,
+    bool? autoDelete = false,
+    bool? noWait = false,
+    bool? declare = true,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #bindQueueConsumer,
+          [
+            queueName,
+            routingKeys,
+          ],
+          {
+            #consumerTag: consumerTag,
+            #noAck: noAck,
+            #passive: passive,
+            #durable: durable,
+            #exclusive: exclusive,
+            #autoDelete: autoDelete,
+            #noWait: noWait,
+            #declare: declare,
+          },
+        ),
+        returnValue: _i4.Future<_i2.Consumer>.value(_FakeConsumer_7(
+          this,
+          Invocation.method(
+            #bindQueueConsumer,
+            [
+              queueName,
+              routingKeys,
+            ],
+            {
+              #consumerTag: consumerTag,
+              #noAck: noAck,
+              #passive: passive,
+              #durable: durable,
+              #exclusive: exclusive,
+              #autoDelete: autoDelete,
+              #noWait: noWait,
+              #declare: declare,
+            },
+          ),
+        )),
+      ) as _i4.Future<_i2.Consumer>);
+}
+
+/// A class which mocks [Queue].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockQueue extends _i1.Mock implements _i2.Queue {
+  MockQueue() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  String get name => (super.noSuchMethod(
+        Invocation.getter(#name),
+        returnValue: _i15.dummyValue<String>(
+          this,
+          Invocation.getter(#name),
+        ),
+      ) as String);
+
+  @override
+  int get messageCount => (super.noSuchMethod(
+        Invocation.getter(#messageCount),
+        returnValue: 0,
+      ) as int);
+
+  @override
+  int get consumerCount => (super.noSuchMethod(
+        Invocation.getter(#consumerCount),
+        returnValue: 0,
+      ) as int);
+
+  @override
+  _i2.Channel get channel => (super.noSuchMethod(
+        Invocation.getter(#channel),
+        returnValue: _FakeChannel_2(
+          this,
+          Invocation.getter(#channel),
+        ),
+      ) as _i2.Channel);
+
+  @override
+  _i4.Future<_i2.Queue> delete({
+    bool? ifUnused = false,
+    bool? ifEmpty = false,
+    bool? noWait = false,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #delete,
+          [],
+          {
+            #ifUnused: ifUnused,
+            #ifEmpty: ifEmpty,
+            #noWait: noWait,
+          },
+        ),
+        returnValue: _i4.Future<_i2.Queue>.value(_FakeQueue_4(
+          this,
+          Invocation.method(
+            #delete,
+            [],
+            {
+              #ifUnused: ifUnused,
+              #ifEmpty: ifEmpty,
+              #noWait: noWait,
+            },
+          ),
+        )),
+      ) as _i4.Future<_i2.Queue>);
+
+  @override
+  _i4.Future<_i2.Queue> purge({bool? noWait = false}) => (super.noSuchMethod(
+        Invocation.method(
+          #purge,
+          [],
+          {#noWait: noWait},
+        ),
+        returnValue: _i4.Future<_i2.Queue>.value(_FakeQueue_4(
+          this,
+          Invocation.method(
+            #purge,
+            [],
+            {#noWait: noWait},
+          ),
+        )),
+      ) as _i4.Future<_i2.Queue>);
+
+  @override
+  _i4.Future<_i2.Queue> bind(
+    _i2.Exchange? exchange,
+    String? routingKey, {
+    bool? noWait,
+    Map<String, Object>? arguments,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #bind,
+          [
+            exchange,
+            routingKey,
+          ],
+          {
+            #noWait: noWait,
+            #arguments: arguments,
+          },
+        ),
+        returnValue: _i4.Future<_i2.Queue>.value(_FakeQueue_4(
+          this,
+          Invocation.method(
+            #bind,
+            [
+              exchange,
+              routingKey,
+            ],
+            {
+              #noWait: noWait,
+              #arguments: arguments,
+            },
+          ),
+        )),
+      ) as _i4.Future<_i2.Queue>);
+
+  @override
+  _i4.Future<_i2.Queue> unbind(
+    _i2.Exchange? exchange,
+    String? routingKey, {
+    bool? noWait,
+    Map<String, Object>? arguments,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #unbind,
+          [
+            exchange,
+            routingKey,
+          ],
+          {
+            #noWait: noWait,
+            #arguments: arguments,
+          },
+        ),
+        returnValue: _i4.Future<_i2.Queue>.value(_FakeQueue_4(
+          this,
+          Invocation.method(
+            #unbind,
+            [
+              exchange,
+              routingKey,
+            ],
+            {
+              #noWait: noWait,
+              #arguments: arguments,
+            },
+          ),
+        )),
+      ) as _i4.Future<_i2.Queue>);
+
+  @override
+  void publish(
+    Object? message, {
+    _i3.MessageProperties? properties,
+    bool? mandatory = false,
+    bool? immediate = false,
+  }) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #publish,
+          [message],
+          {
+            #properties: properties,
+            #mandatory: mandatory,
+            #immediate: immediate,
+          },
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i4.Future<_i2.Consumer> consume({
+    String? consumerTag,
+    bool? noLocal = false,
+    bool? noAck = true,
+    bool? exclusive = false,
+    bool? noWait = false,
+    Map<String, Object>? arguments,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #consume,
+          [],
+          {
+            #consumerTag: consumerTag,
+            #noLocal: noLocal,
+            #noAck: noAck,
+            #exclusive: exclusive,
+            #noWait: noWait,
+            #arguments: arguments,
+          },
+        ),
+        returnValue: _i4.Future<_i2.Consumer>.value(_FakeConsumer_7(
+          this,
+          Invocation.method(
+            #consume,
+            [],
+            {
+              #consumerTag: consumerTag,
+              #noLocal: noLocal,
+              #noAck: noAck,
+              #exclusive: exclusive,
+              #noWait: noWait,
+              #arguments: arguments,
+            },
+          ),
+        )),
+      ) as _i4.Future<_i2.Consumer>);
+}
+
+/// A class which mocks [Consumer].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockConsumer extends _i1.Mock implements _i2.Consumer {
+  MockConsumer() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  String get tag => (super.noSuchMethod(
+        Invocation.getter(#tag),
+        returnValue: _i15.dummyValue<String>(
+          this,
+          Invocation.getter(#tag),
+        ),
+      ) as String);
+
+  @override
+  _i2.Channel get channel => (super.noSuchMethod(
+        Invocation.getter(#channel),
+        returnValue: _FakeChannel_2(
+          this,
+          Invocation.getter(#channel),
+        ),
+      ) as _i2.Channel);
+
+  @override
+  _i2.Queue get queue => (super.noSuchMethod(
+        Invocation.getter(#queue),
+        returnValue: _FakeQueue_4(
+          this,
+          Invocation.getter(#queue),
+        ),
+      ) as _i2.Queue);
+
+  @override
+  _i4.StreamSubscription<_i2.AmqpMessage> listen(
+    void Function(_i2.AmqpMessage)? onData, {
+    Function? onError,
+    void Function()? onDone,
+    bool? cancelOnError,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #listen,
+          [onData],
+          {
+            #onError: onError,
+            #onDone: onDone,
+            #cancelOnError: cancelOnError,
+          },
+        ),
+        returnValue: _FakeStreamSubscription_3<_i2.AmqpMessage>(
+          this,
+          Invocation.method(
+            #listen,
+            [onData],
+            {
+              #onError: onError,
+              #onDone: onDone,
+              #cancelOnError: cancelOnError,
+            },
+          ),
+        ),
+      ) as _i4.StreamSubscription<_i2.AmqpMessage>);
+
+  @override
+  _i4.Future<_i2.Consumer> cancel({bool? noWait = false}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #cancel,
+          [],
+          {#noWait: noWait},
+        ),
+        returnValue: _i4.Future<_i2.Consumer>.value(_FakeConsumer_7(
+          this,
+          Invocation.method(
+            #cancel,
+            [],
+            {#noWait: noWait},
+          ),
+        )),
+      ) as _i4.Future<_i2.Consumer>);
 }

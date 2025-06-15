@@ -9,10 +9,14 @@ class NotificationService {
   SharedPreferences? _prefs;
   static const String _prefsKey = 'notifications_enabled';
 
+  // Test edilebilirlik için platform kontrollerini fonksiyon olarak dışarıdan enjekte edilebilir yaptık
+  static bool Function() isAndroid = () => Platform.isAndroid;
+  static bool Function() isIOS = () => Platform.isIOS;
+
   static String get RABBITMQ_HOST {
-    if (Platform.isAndroid) {
+    if (isAndroid()) {
       return '10.0.2.2'; // Android
-    } else if (Platform.isIOS) {
+    } else if (isIOS()) {
       return 'localhost'; // iOS 
     }
     return 'localhost';
@@ -22,14 +26,14 @@ class NotificationService {
   static const String RABBITMQ_USER = 'guest';
   static const String RABBITMQ_PASS = 'guest';
 
+  final Client Function()? clientFactory;
+
   NotificationService({
     FlutterLocalNotificationsPlugin? notifications,
     SharedPreferences? prefs,
-  }) : _notifications = notifications ?? FlutterLocalNotificationsPlugin() {
-    if (prefs != null) {
-      _prefs = prefs;
-    }
-  }
+    this.clientFactory,
+  }) : _notifications = notifications ?? FlutterLocalNotificationsPlugin(),
+       _prefs = prefs;
 
   Future<SharedPreferences> get _getPrefs async {
     _prefs ??= await SharedPreferences.getInstance();
@@ -69,7 +73,7 @@ class NotificationService {
 
   Future<void> _setupBackgroundListening(String userEmail) async {
     try {
-      final client = Client(
+      final client = clientFactory != null ? clientFactory!() : Client(
         settings: ConnectionSettings(
           host: RABBITMQ_HOST,
           port: RABBITMQ_PORT,

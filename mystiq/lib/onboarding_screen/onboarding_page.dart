@@ -4,8 +4,9 @@ import 'package:mystiq_fortune_app/database/constant.dart';
 import 'package:mystiq_fortune_app/pages/MainPage/main_page_normal_user.dart';
 
 class OnboardingPage extends StatefulWidget {
-  const OnboardingPage({super.key, required this.email,});
+  const OnboardingPage({super.key, required this.email, this.skipDbInit = false});
   final String email;
+  final bool skipDbInit;
 
   @override
   _OnboardingPageState createState() => _OnboardingPageState();
@@ -28,7 +29,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
   @override
   void initState() {
     super.initState();
-    _connectToDatabase();
+    if (!widget.skipDbInit) {
+      _connectToDatabase();
+    }
   }
 
   void _connectToDatabase() async {
@@ -99,7 +102,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   @override
   void dispose() {
-    db.close();
+    if (!widget.skipDbInit) {
+      db.close();
+    }
     super.dispose();
   }
 

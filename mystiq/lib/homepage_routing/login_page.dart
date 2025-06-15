@@ -17,7 +17,20 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   final String role;
-  const LoginPage({super.key, required this.role});
+  final mongo.Db? db;
+  final mongo.DbCollection? usersCollection;
+  final GoogleSignIn? googleSignIn;
+  final SessionService? sessionService;
+  final String assetPath;
+  const LoginPage({
+    super.key,
+    required this.role,
+    this.db,
+    this.usersCollection,
+    this.googleSignIn,
+    this.sessionService,
+    this.assetPath = 'assets/google_logo.svg',
+  });
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -42,9 +55,9 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _connectToDatabase() async {
-    db = mongo.Db(MONGO_URL);
+    db = widget.db ?? mongo.Db(MONGO_URL);
     await db.open();
-    usersCollection = db.collection("users");
+    usersCollection = widget.usersCollection ?? db.collection("users");
   }
 
   void _loginUser() async {
@@ -62,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
 
         // Oturumu kaydet
         final prefs = await SharedPreferences.getInstance();
-        final sessionService = SessionService(prefs);
+        final sessionService = widget.sessionService ?? SessionService(prefs);
         await sessionService.saveSession(email, role);
 
         ScaffoldMessenger.of(context).showSnackBar(
@@ -157,7 +170,7 @@ class _LoginPageState extends State<LoginPage> {
 
           // Oturumu kaydet
           final prefs = await SharedPreferences.getInstance();
-          final sessionService = SessionService(prefs);
+          final sessionService = widget.sessionService ?? SessionService(prefs);
           await sessionService.saveSession(email!, role);
 
           if (role == "Fortune Teller") {
@@ -462,7 +475,7 @@ class _LoginPageState extends State<LoginPage> {
                 googleLogin();
               },
               icon: SvgPicture.asset(
-                '/Users/aliseyhan/mobile-application-development-course/mystiq_fortune_app/assets/google_logo.svg',
+                widget.assetPath,
                 width: 24,
                 height: 24,
               ),
